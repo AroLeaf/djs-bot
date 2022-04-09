@@ -21,5 +21,6 @@
     "file-ez": "^1.0.0",
     "node-fetch": "^3.2.3",
     "xregexp": "^5.1.0"
-  }
+  },
+  "files": [ "dist/*" ]
 }
