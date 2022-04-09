@@ -19,6 +19,7 @@
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "file-ez": "^1.0.0",
+    "log-update": "^5.0.0",
     "node-fetch": "^3.2.3",
     "xregexp": "^5.1.0"
   },
