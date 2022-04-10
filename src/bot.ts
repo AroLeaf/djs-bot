@@ -71,7 +71,7 @@ export class Bot extends Client {
       const prefix = XRegExp(`^(<@${message.client.user?.id}>|${XRegExp.escape(message.client.prefix)})`).exec(message.content)?.[0];
       if (!prefix) return;
 
-      const args = message.content.slice(0, prefix.length).split(/ /);
+      const args = message.content.slice(prefix.length).split(/ /);
       const commandName = args.shift();
       const cmd = commandName && message.client.commands?.resolve(commandName) as PrefixCommand;
       if (cmd) cmd.execute(message, args);

@@ -12,12 +12,6 @@ import * as log from '../logging.js';
 import { BaseCommandData, Command, CommandData } from './command.js';
 import { ModalInteraction } from '../modal.js';
 
-
-declare module 'discord.js' {
-
-}
-
-
 export class ContextCommand extends Command {
   override data: ApplicationCommandData;
   run: (interaction: ContextMenuInteraction) => any;

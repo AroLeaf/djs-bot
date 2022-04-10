@@ -61,8 +61,8 @@ export class Command {
       allowedMentions: { repliedUser: false },
     });
     
-    if (this.flags?.has(CommandFlags.FLAGS.GUILD_ONLY) && !request.inGuild()) return reply('This command can only be used in guilds.');
-    if (this.flags?.has(CommandFlags.FLAGS.OWNER_ONLY) && !request.client.owners?.includes(user.id)) return reply('This command can only be used by the bot owner(s)');
+    if (this.flags.has(CommandFlags.FLAGS.GUILD_ONLY) && !request.inGuild()) return reply('This command can only be used in guilds.');
+    if (this.flags.has(CommandFlags.FLAGS.OWNER_ONLY) && !request.client.owners?.includes(user.id)) return reply('This command can only be used by the bot owner(s)');
     
     if (request.inGuild()) {
       if (!request.member?.permissionsIn(request.channel).has(this.perms.user)) return reply('You are missing permissions:\n' + request.member?.permissionsIn(request.channel).missing(this.perms.user).join('\n'));

@@ -94,6 +94,8 @@ export class PrefixCommand extends Command {
   }
 
   async execute(message: Message, args: string[]) {
+    if (!super.check(message)) return;
+
     const resolveType = (type: PrefixCommandOptionTypeString | PrefixCommandOptionType) => typeof type === 'string' ? ({
       STRING: 0,
       NUMBER: 1,
@@ -179,7 +181,6 @@ export class PrefixCommand extends Command {
         parsed.set(arg.name, value);
       }
     }
-
 
     try {
       await this.run(message, parsed);
