@@ -5,11 +5,12 @@ import {
   CommandInteraction,
   ContextMenuInteraction,
   ApplicationCommandData,
+  ApplicationCommandSubCommandData,
 } from 'discord.js';
 
-import * as log from './logging.js';
-import { WithFlags, Command, CommandData, StandaloneSubcommandData } from './command.js';
-import { ModalInteraction } from './modal.js';
+import * as log from '../logging.js';
+import { BaseCommandData, Command, CommandData } from './command.js';
+import { ModalInteraction } from '../modal.js';
 
 
 declare module 'discord.js' {
@@ -21,7 +22,7 @@ export class ContextCommand extends Command {
   override data: ApplicationCommandData;
   run: (interaction: ContextMenuInteraction) => any;
 
-  constructor(data: WithFlags<ApplicationCommandData>, run: (interaction: ContextMenuInteraction) => any) {
+  constructor(data: BaseCommandData<ApplicationCommandData>, run: (interaction: ContextMenuInteraction) => any) {
     super(data);
     this.data = data;
     this.run = run;
@@ -70,7 +71,7 @@ export class SlashCommand extends Command {
   subcommands: Collection<string, Subcommand>;
   run: (interaction: CommandInteraction) => any;
 
-  constructor(data: WithFlags<ChatInputApplicationCommandData>, run: (interaction: CommandInteraction) => any) {
+  constructor(data: BaseCommandData<ChatInputApplicationCommandData>, run: (interaction: CommandInteraction) => any) {
     super(data);
     data.type ||= 1;
     this.data = data;
@@ -81,7 +82,7 @@ export class SlashCommand extends Command {
   }
 
 
-  subcommand(data: WithFlags<StandaloneSubcommandData>, run: (interaction: CommandInteraction) => any) {
+  subcommand(data: BaseCommandData<StandaloneSubcommandData>, run: (interaction: CommandInteraction) => any) {
     return new Subcommand(this, data, run);
   }
 
@@ -109,13 +110,17 @@ export class SlashCommand extends Command {
 }
 
 
+export interface StandaloneSubcommandData extends ApplicationCommandSubCommandData {
+  group?: string;
+}
+
 export class Subcommand extends Command {
   command: SlashCommand;
   override data: StandaloneSubcommandData;
   group?: string;
   run: (interaction: CommandInteraction) => any;
 
-  constructor(command: SlashCommand, data: WithFlags<StandaloneSubcommandData>, run: (interaction: CommandInteraction) => any) {
+  constructor(command: SlashCommand, data: BaseCommandData<StandaloneSubcommandData>, run: (interaction: CommandInteraction) => any) {
     super(data);
     data.type = 1;
     this.data = data;

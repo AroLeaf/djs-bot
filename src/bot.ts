@@ -1,12 +1,14 @@
-import { Client, ClientOptions, Interaction } from 'discord.js';
+import { Client, ClientOptions, Interaction, Message } from 'discord.js';
+import XRegExp from 'xregexp';
 
-import { CommandManager } from './commandManager.js';
-import { Command } from './command.js';
-import { ContextCommand, ModalHandler, SlashCommand } from './appCommand.js';
-import { EventManager } from './eventManager.js';
-import { Event } from './event.js';
+import { CommandManager } from './commands/commandManager.js';
+import { Command } from './commands/command.js';
+import { ContextCommand, ModalHandler, SlashCommand } from './commands/appCommand.js';
+import { EventManager } from './events/eventManager.js';
+import { Event } from './events/event.js';
 import { ModalInteraction } from './modal.js';
 import { RawInteractionData } from 'discord.js/typings/rawDataTypes';
+import { PrefixCommand } from './commands/prefixCommand.js';
 
 declare module 'discord.js' {
   interface Client {
@@ -63,10 +65,17 @@ export class Bot extends Client {
         if (cmd) return cmd.execute(interaction as ModalInteraction);
       }
     }),
-    // new Event({ event: 'messageCreate', _default: true }, async function (message: Message) {
-    //   if (message.author.bot) return;
-    //   if (!message.content.startsWith(message.client.prefix||'')) return;
-    // }),
+
+    new Event({ event: 'messageCreate', _default: true }, async function (message: Message) {
+      if (message.author.bot || !message.client.prefix) return;
+      const prefix = XRegExp(`^(<@${message.client.user?.id}>|${XRegExp.escape(message.client.prefix)})`).exec(message.content)?.[0];
+      if (!prefix) return;
+
+      const args = message.content.slice(0, prefix.length).split(/ /);
+      const commandName = args.shift();
+      const cmd = commandName && message.client.commands?.resolve(commandName) as PrefixCommand;
+      if (cmd) cmd.execute(message, args);
+    }),
   ];
 
   static onINTERACTION_CREATE(client: Client, interaction: RawInteractionData) {

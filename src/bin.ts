@@ -7,8 +7,8 @@ import { ShardingManager } from 'discord.js';
 import 'dotenv/config';
 
 import * as log from './logging.js';
-import { Command } from './command.js';
-import { ModalHandler, Subcommand } from './appCommand.js';
+import { Command } from './commands/command.js';
+import { ModalHandler, Subcommand } from './commands/appCommand.js';
 log.config.level = 3;
 
 declare global {

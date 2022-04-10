@@ -1,7 +1,7 @@
 import { Client } from 'discord.js';
 
 import { Event } from './event.js';
-import { partition } from './util.js';
+import { partition } from '../util.js';
 
 export class EventManager {
   client: Client;

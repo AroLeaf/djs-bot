@@ -12,11 +12,11 @@ export class CommandManager {
     this.cache = new Collection(commands.filter(cmd => !(cmd instanceof Subcommand)).map(cmd => [cmd.name, cmd]));
   }
 
-  resolve(command: Command| string) {
+  resolve(command: Command | string) {
     if (command instanceof Subcommand) return command.command;
     if (typeof command !== 'string') return command;
 
-    const [base] = command.split(/\.(.*)/) as [string, string|undefined];
+    const [base] = command.split(/\.(.*)/) as [string, string | undefined];
     return this.cache.get(base);
   }
 }
