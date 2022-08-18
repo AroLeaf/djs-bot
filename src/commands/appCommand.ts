@@ -2,27 +2,28 @@ import {
   ChatInputApplicationCommandData,
   ApplicationCommandSubGroupData,
   Collection,
-  CommandInteraction,
-  ContextMenuInteraction,
+  ContextMenuCommandInteraction,
   ApplicationCommandData,
   ApplicationCommandSubCommandData,
+  ChatInputCommandInteraction,
+  ModalSubmitInteraction,
 } from 'discord.js';
 
 import * as log from '../logging.js';
 import { BaseCommandData, Command, CommandData } from './command.js';
-import { ModalInteraction } from '../modal.js';
+
 
 export class ContextCommand extends Command {
   override data: ApplicationCommandData;
-  run: (interaction: ContextMenuInteraction) => any;
+  run: (interaction: ContextMenuCommandInteraction) => any;
 
-  constructor(data: BaseCommandData<ApplicationCommandData>, run: (interaction: ContextMenuInteraction) => any) {
+  constructor(data: BaseCommandData<ApplicationCommandData>, run: (interaction: ContextMenuCommandInteraction) => any) {
     super(data);
     this.data = data;
     this.run = run;
   }
 
-  async execute(interaction: ContextMenuInteraction) {
+  async execute(interaction: ContextMenuCommandInteraction) {
     try {
       await this.run(interaction);
     } catch (err) {
@@ -38,34 +39,34 @@ export class ContextCommand extends Command {
 
 
 export class ModalHandler extends Command {
-  run: (interaction: ModalInteraction) => any;
+  run: (interaction: ModalSubmitInteraction) => any;
 
-  constructor(data: CommandData, run: (interaction: ModalInteraction) => any) {
+  constructor(data: CommandData, run: (interaction: ModalSubmitInteraction) => any) {
     super(data);
     this.run = run;
   }
 
-  async execute(interaction: ModalInteraction) {
+  async execute(interaction: ModalSubmitInteraction) {
     try {
       await this.run(interaction);
     } catch (err) {
       log.error(err);
-      // const res = {
-      //   content: 'Something went wrong executing the command',
-      //   ephemeral: true,
-      // };
-      // interaction.replied ? interaction.followUp(res) : interaction.reply(res);
+      const res = {
+        content: 'Something went wrong executing the command',
+        ephemeral: true,
+      };
+      interaction.replied ? interaction.followUp(res) : interaction.reply(res);
     }
   }
 }
 
 
 export class SlashCommand extends Command {
-  override data: ChatInputApplicationCommandData;
+  data: ChatInputApplicationCommandData;
   subcommands: Collection<string, Subcommand>;
-  run: (interaction: CommandInteraction) => any;
+  run: (interaction: ChatInputCommandInteraction) => any;
 
-  constructor(data: BaseCommandData<ChatInputApplicationCommandData>, run: (interaction: CommandInteraction) => any) {
+  constructor(data: BaseCommandData<ChatInputApplicationCommandData>, run: (interaction: ChatInputCommandInteraction) => any) {
     super(data);
     data.type ||= 1;
     this.data = data;
@@ -76,12 +77,12 @@ export class SlashCommand extends Command {
   }
 
 
-  subcommand(data: BaseCommandData<StandaloneSubcommandData>, run: (interaction: CommandInteraction) => any) {
+  subcommand(data: BaseCommandData<StandaloneSubcommandData>, run: (interaction: ChatInputCommandInteraction) => any) {
     return new Subcommand(this, data, run);
   }
 
 
-  async execute(interaction: CommandInteraction) {
+  async execute(interaction: ChatInputCommandInteraction) {
     const sub = interaction.options.getSubcommand(false);
     if (sub) {
       const group = interaction.options.getSubcommandGroup(false);
@@ -110,11 +111,11 @@ export interface StandaloneSubcommandData extends ApplicationCommandSubCommandDa
 
 export class Subcommand extends Command {
   command: SlashCommand;
-  override data: StandaloneSubcommandData;
+  data: StandaloneSubcommandData;
   group?: string;
-  run: (interaction: CommandInteraction) => any;
+  run: (interaction: ChatInputCommandInteraction) => any;
 
-  constructor(command: SlashCommand, data: BaseCommandData<StandaloneSubcommandData>, run: (interaction: CommandInteraction) => any) {
+  constructor(command: SlashCommand, data: BaseCommandData<StandaloneSubcommandData>, run: (interaction: ChatInputCommandInteraction) => any) {
     super(data);
     data.type = 1;
     this.data = data;
@@ -141,7 +142,7 @@ export class Subcommand extends Command {
   }
 
 
-  async execute(interaction: CommandInteraction) {
+  async execute(interaction: ChatInputCommandInteraction) {
     try {
       await this.run(interaction);
     } catch (err) {

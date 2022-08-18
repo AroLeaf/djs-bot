@@ -1,5 +1,6 @@
-import { recursive, require } from 'file-ez';
+import { recursive } from 'file-ez';
 import { resolve } from 'path';
+
 
 export function partition<T>(array: T[], pred: (value: T, index: number, arr: T[]) => boolean, that?: any): [T[], T[]] {
   if (that) pred = pred.bind(that);
@@ -14,6 +15,6 @@ export function partition<T>(array: T[], pred: (value: T, index: number, arr: T[
 
 export async function loader(dir: string) {
   const files = await recursive(resolve(dir));
-  const things = await Promise.all(files.map(file => require(file)));
-  return things.filter(thing => thing);
+  const things = files.map(file => require(file));
+  return things.map(m => m.default || m).filter(m => m);
 }

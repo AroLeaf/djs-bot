@@ -73,13 +73,13 @@ export type PrefixCommandOptionOptions = {
 
 
 export type ResolvedPrefixCommandOptionType = 
-| string
-| number
-| User
-| GuildMember
-| Role
-| GuildChannel
-| Message
+  | string
+  | number
+  | User
+  | GuildMember
+  | Role
+  | GuildChannel
+  | Message
 
 export type PrefixCommandArguments<Parsed = boolean> = Parsed extends true ? Collection<string, ResolvedPrefixCommandOptionType> & { raw: string[] } : string[];
 

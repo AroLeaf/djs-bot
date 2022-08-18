@@ -1,8 +1,5 @@
 import { WriteStream } from 'tty';
 import { inspect } from 'util';
-import { createLogUpdate } from 'log-update';
-
-const logUpdate = createLogUpdate(process.stdout, { showCursor: true });
 
 export const config = {
   fancy: true,
@@ -22,24 +19,18 @@ export enum LogType {
 
 export function info(subject: any, options?: Partial<typeof config>) {
   if (config.level > 2) {
-    logUpdate.clear();
     write(process.stdout, LogType.INFO, subject, options);
   }
 }
 
 export function warn(subject: any, options?: Partial<typeof config>) {
   if (config.level > 1) {
-    logUpdate.clear();
     write(process.stderr, LogType.WARN, subject, options);
   }
 }
 
 export function error(subject: any, options?: Partial<typeof config>) {
   config.level > 0 && write(process.stderr, LogType.ERROR, subject, options);
-}
-
-export function update(subject: any) {
-  config.level > 2 && logUpdate(subject);
 }
 
 

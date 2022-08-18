@@ -1,7 +1,4 @@
 {
-  "extends": "@sindresorhus/tsconfig",
-  "compilerOptions": {
-    "module": "es2022",
-    "outDir": "./dist"
-  },
+  "extends": "@aroleaf/tsconfig",
+  "include": ["src/**/*"]
 }

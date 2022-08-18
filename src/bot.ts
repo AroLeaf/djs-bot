@@ -1,14 +1,15 @@
-import { Client, ClientOptions, Interaction, Message } from 'discord.js';
+import { ApplicationCommandData, Client, ClientOptions, Events, Interaction, Message } from 'discord.js';
 import XRegExp from 'xregexp';
 
-import { CommandManager } from './commands/commandManager.js';
-import { Command } from './commands/command.js';
-import { ContextCommand, ModalHandler, SlashCommand } from './commands/appCommand.js';
-import { EventManager } from './events/eventManager.js';
-import { Event } from './events/event.js';
-import { ModalInteraction } from './modal.js';
-import { RawInteractionData } from 'discord.js/typings/rawDataTypes';
-import { PrefixCommand } from './commands/prefixCommand.js';
+import {
+  Command,
+  CommandManager,
+  ContextCommand,
+  ModalHandler,
+  SlashCommand,
+  PrefixCommand,
+} from './commands';
+import { EventManager, Event } from './events';
 
 declare module 'discord.js' {
   interface Client {
@@ -19,69 +20,99 @@ declare module 'discord.js' {
   }
 }
 
-interface BotOptions extends ClientOptions {
+export interface CommandRegisterOptions {
+  global?: boolean;
+  guilds?: string[];
+}
+
+export interface BotOptions extends ClientOptions {
   commands?: Command[];
   events?: Event[];
   owner?: string;
   owners?: string[];
   prefix?: string;
+  register?: CommandRegisterOptions;
 }
 
 export class Bot extends Client {
-  override commands: CommandManager;
-  override owners: string[];
+  commands: CommandManager;
+  events: EventManager;
+  owners: string[];
 
   constructor(options: BotOptions) {
     options.intents ||= [1<<0, 1<<9];
     super(options);
     this.owners = (options.owners || [options.owner] || []) as string[];
     this.commands = new CommandManager(this, options.commands);
-    this.events = new EventManager(this, (options.events || []).concat(Bot.defaultEvents))
+    this.events = new EventManager(this, (options.events || []).concat(Bot.defaultEvents));
     
     this.prefix = options.prefix;
+    
+    if (options.register) this.on(Events.ClientReady, () => this.register(options.register!));
   }
 
+  async register(options: CommandRegisterOptions) {
+    options.guilds ??= [];
+    options.global ??= false;
 
-  override login(token?: string): Promise<string> {
-    this.ws.on('INTERACTION_CREATE', interaction => Bot.onINTERACTION_CREATE(this, interaction));
-    return super.login(token);
+    if (options.global) {
+      const commands = await this.application!.commands.fetch();
+      const different = commands.size !== this.commands.appCommands.size || !commands.every(command => command.equals(<ApplicationCommandData>this.commands.resolveAppCommand(command.name)?.data || {}));
+      if (different) await this.application!.commands.set(this.commands.appCommands.map(cmd => <ApplicationCommandData>cmd.data));
+      for (const id of options.guilds) {
+        this.guilds.resolve(id)?.commands.set([]);
+      }
+      return;
+    }
+
+    for (const id of options.guilds) {
+      const guild = this.guilds.resolve(id);
+      if (!guild) continue;
+      const commands = await guild.commands.fetch();
+      const different = commands.size !== this.commands.appCommands.size || !commands.every(command => command.equals(<ApplicationCommandData>this.commands.resolveAppCommand(command.name)?.data || {}));
+      if (different) await guild.commands.set(this.commands.appCommands.map(cmd => <ApplicationCommandData>cmd.data));
+    }
   }
 
 
   static defaultEvents = [
-    new Event({ event: 'interactionCreate', _default: true }, async function (interaction: Interaction) {
-      if (interaction.isCommand()) {
-        const cmd = interaction.client.commands?.resolve(interaction.commandName) as SlashCommand | undefined;
-        if (cmd) return cmd.execute(interaction);
+    new Event({ event: Events.InteractionCreate, _default: true }, async function (interaction: Interaction) {
+      if (interaction.isChatInputCommand()) {
+        const cmd = interaction.client.commands?.resolveAppCommand(interaction.commandName) as SlashCommand | undefined;
+        return cmd && cmd.execute(interaction);
       }
   
-      if (interaction.isContextMenu()) {
-        const cmd = interaction.client.commands?.resolve(interaction.commandName) as ContextCommand | undefined;
-        if (cmd) return cmd.execute(interaction);
+      if (interaction.isContextMenuCommand()) {
+        const cmd = interaction.client.commands?.resolveAppCommand(interaction.commandName) as ContextCommand | undefined;
+        return cmd && cmd.execute(interaction);
       }
 
-      if (interaction.isModal()) {
-        const cmd = interaction.client.commands?.resolve((interaction as ModalInteraction).customId) as ModalHandler | undefined;        
-        if (cmd) return cmd.execute(interaction as ModalInteraction);
+      if (interaction.isModalSubmit()) {
+        const cmd = interaction.client.commands?.resolveAppCommand(interaction.customId) as ModalHandler | undefined;        
+        return cmd && cmd.execute(interaction);
       }
     }),
 
-    new Event({ event: 'messageCreate', _default: true }, async function (message: Message) {
-      if (message.author.bot || !message.client.prefix) return;
-      const prefix = XRegExp(`^(<@${message.client.user?.id}>|${XRegExp.escape(message.client.prefix)})`).exec(message.content)?.[0];
+    new Event({ event: Events.MessageCreate, _default: true }, async function (message: Message) {
+      if (message.author.bot) return;
+      const prefix = XRegExp(message.client.prefix 
+        ? `^(<@${message.client.user!.id}>|${XRegExp.escape(message.client.prefix)})` 
+        : `^<@${message.client.user!.id}>`
+      ).exec(message.content)?.[0];
       if (!prefix) return;
 
-      const args = message.content.slice(prefix.length).split(/ /);
+      const args = message.content.slice(prefix.length).split(/ +/);
       const commandName = args.shift();
-      const cmd = commandName && message.client.commands?.resolve(commandName) as PrefixCommand;
+      const cmd = commandName && message.client.commands?.resolvePrefixCommand(commandName) as PrefixCommand;
       if (cmd) cmd.execute(message, args);
     }),
-  ];
 
-  static onINTERACTION_CREATE(client: Client, interaction: RawInteractionData) {
-    // @ts-expect-error
-    if (interaction.type !== 5) return;
-    // @ts-expect-error
-    client.emit('interactionCreate', new ModalInteraction(client, interaction));
-  }
+    new Event({ event: Events.ClientReady }, async function (client: Bot) {
+      
+      const commands = await client.application!.commands.fetch();
+      const same = commands.every(command => command.equals(<ApplicationCommandData>client.commands.resolveAppCommand(command.name)?.data || {}));
+      if (same) return;
+      
+    })
+  ];
 }
