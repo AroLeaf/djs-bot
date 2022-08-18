@@ -1,6 +1,6 @@
 {
   "name": "@aroleaf/djs-bot",
-  "version": "2.0.0-pre1",
+  "version": "2.0.0-pre2",
   "decription": "A bot wrapper for discord.js",
   "main": "dist/index.js",
   "commands": "test.js",
@@ -19,7 +19,6 @@
   "dependencies": {
     "@swc/helpers": "^0.4.6",
     "discord.js": "^14.2.0",
-    "dotenv": "^16.0.0",
     "file-ez": "^1.0.0",
     "xregexp": "^5.1.0"
   },
