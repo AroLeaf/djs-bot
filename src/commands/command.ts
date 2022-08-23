@@ -60,7 +60,6 @@ export class Command {
       self: new PermissionsBitField(data.permissions?.self),
       user: new PermissionsBitField(data.permissions?.user),
     };
-    delete data.flags;
   }
 
   check(request: CommandInteraction<'cached'> | Message) {

@@ -1,4 +1,4 @@
-import { ApplicationCommandData, Client, ClientOptions, Events, Interaction, Message } from 'discord.js';
+import { ApplicationCommandData, AutocompleteInteraction, Client, ClientOptions, Collection, Events, Interaction, Message } from 'discord.js';
 import XRegExp from 'xregexp';
 
 import {
@@ -57,21 +57,30 @@ export class Bot extends Client {
 
     if (options.global) {
       const commands = await this.application!.commands.fetch();
-      const different = commands.size !== this.commands.appCommands.size || !commands.every(command => command.equals(<ApplicationCommandData>this.commands.resolveAppCommand(command.name)?.data || {}));
-      if (different) await this.application!.commands.set(this.commands.appCommands.map(cmd => <ApplicationCommandData>cmd.data));
+      const filtered = this.commands.appCommands.filter(cmd => !(cmd instanceof ModalHandler || cmd.guilds));
+      const different = commands.size !== filtered.size || !commands.every(command => command.equals(<ApplicationCommandData>this.commands.resolveAppCommand(command.name)?.data || {}));
+      if (different) await this.application!.commands.set(filtered.map(cmd => <ApplicationCommandData>cmd.data));
       for (const id of options.guilds) {
         this.guilds.resolve(id)?.commands.set([]);
       }
       return;
-    }
-
-    for (const id of options.guilds) {
+    } else for (const id of options.guilds) {
       const guild = this.guilds.resolve(id);
       if (!guild) continue;
       const commands = await guild.commands.fetch();
-      const different = commands.size !== this.commands.appCommands.size || !commands.every(command => command.equals(<ApplicationCommandData>this.commands.resolveAppCommand(command.name)?.data || {}));
-      if (different) await guild.commands.set(this.commands.appCommands.map(cmd => <ApplicationCommandData>cmd.data));
+      const filtered = this.commands.appCommands.filter(cmd => !(cmd instanceof ModalHandler || cmd.guilds));
+      const different = commands.size !== filtered.size || !commands.every(command => command.equals(<ApplicationCommandData>this.commands.resolveAppCommand(command.name)?.data || {}));
+      if (different) await guild.commands.set(filtered.map(cmd => <ApplicationCommandData>cmd.data));
     }
+
+    const filtered = <Collection<string, ContextCommand | SlashCommand>>this.commands.appCommands.filter(cmd => !(cmd instanceof ModalHandler) && !!cmd.guilds);
+    const guilds = new Map<string, (ContextCommand | SlashCommand)[]>();
+    for (const [,command] of filtered) {
+      for (const guild of command.guilds!) {
+        guilds.set(guild, (guilds.get(guild) || []).concat(command));
+      }
+    }
+    
   }
 
 
@@ -91,6 +100,11 @@ export class Bot extends Client {
         const cmd = interaction.client.commands?.resolveAppCommand(interaction.customId) as ModalHandler | undefined;        
         return cmd && cmd.execute(interaction);
       }
+
+      if (interaction.isAutocomplete()) {
+        const cmd = interaction.client.commands?.resolveAppCommand(interaction.commandName) as SlashCommand | undefined;        
+        return cmd && cmd.autocomplete(<AutocompleteInteraction<'cached'>>interaction);
+      }
     }),
 
     new Event({ event: Events.MessageCreate, _default: true }, async function (message: Message) {
@@ -106,13 +120,5 @@ export class Bot extends Client {
       const cmd = commandName && message.client.commands?.resolvePrefixCommand(commandName) as PrefixCommand;
       if (cmd) cmd.execute(message, args);
     }),
-
-    new Event({ event: Events.ClientReady }, async function (client: Bot) {
-      
-      const commands = await client.application!.commands.fetch();
-      const same = commands.every(command => command.equals(<ApplicationCommandData>client.commands.resolveAppCommand(command.name)?.data || {}));
-      if (same) return;
-      
-    })
   ];
 }

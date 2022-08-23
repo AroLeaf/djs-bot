@@ -13,6 +13,19 @@ export function partition<T>(array: T[], pred: (value: T, index: number, arr: T[
 }
 
 
+export function objectOmit<T, O extends keyof T>(object: T, ...omit: O[]): Omit<T, O> {
+  const copy = { ...object };
+  for (const key of omit) delete copy[key];
+  return copy;
+}
+
+export function objectPick<T, P extends keyof T>(object: T, ...pick: P[]): Pick<T, P> {
+  const copy = { ...object };
+  for (const key of <P[]>Object.keys(copy)) if (!pick.includes(key)) delete copy[key];
+  return copy;
+}
+
+
 export async function loader(dir: string) {
   const files = await recursive(resolve(dir));
   const modules = await Promise.all(files.map(file => _require(file)));

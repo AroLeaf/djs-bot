@@ -1,11 +1,15 @@
 {
   "name": "@aroleaf/djs-bot",
-  "version": "2.0.0-pre2",
+  "version": "2.0.0-pre4",
   "decription": "A bot wrapper for discord.js",
   "main": "dist/index.js",
+  "exports": {
+    "require": "./dist/index.js",
+    "import": "./dist/index.mjs"
+  },
   "commands": "test.js",
   "scripts": {
-    "build": "npx swc src -d dist",
+    "build": "rm -rf dist && npx swc src -d dist && node buildExports.js",
     "types": "rm -rf types && npx tsc --declaration --emitDeclarationOnly --declarationDir types"
   },
   "license": "MIT",
@@ -19,7 +23,7 @@
   "dependencies": {
     "@swc/helpers": "^0.4.6",
     "discord.js": "^14.2.0",
-    "file-ez": "^1.0.0",
+    "file-ez": "^1.0.1",
     "xregexp": "^5.1.0"
   },
   "types": "types/index.d.ts",
