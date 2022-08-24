@@ -214,6 +214,15 @@ export class Subcommand extends Command {
       parent.options ||= [];
       parent.options.push(this.data);
     }
+
+    for (const option of data.options || []) {
+      if (!option.autocomplete) continue;
+      if (!option.onAutocomplete) {
+        log.warn(`option '${option.name}' on command '${data.name}' has autocomplete enabled, but no autocomplete handler`);
+        continue;
+      }
+      this.autocompleteHandlers.set(option.name, option.onAutocomplete);
+    }
   }
 
   get label() {
