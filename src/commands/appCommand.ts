@@ -196,8 +196,10 @@ export class Subcommand extends Command {
   constructor(command: SlashCommand, data: BaseCommandData<StandaloneSubcommandData>, run: (interaction: ChatInputCommandInteraction) => any) {
     super(data);
     data.type = 1;
-    this.data = data;
-    this.data.options = <SubcommandOptionData[]>data.options?.map(o => objectOmit(o, 'onAutocomplete'));
+    this.data = {
+      ...data,
+      options: <SubcommandOptionData[]>data.options?.map(o => objectOmit(o, 'onAutocomplete')),
+    };
 
     this.command = command;
     this.group = 'group' in data ? data.group : undefined;
