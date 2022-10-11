@@ -24,7 +24,7 @@ export class CommandManager {
     this.client = client;
 
     function createCommandCollection<T extends Constructable<Command>>(cls: T, type?: ApplicationCommandType) {
-      return new Collection<string, InstanceType<T>>(commands.filter(cmd => cmd instanceof cls && type ? 'type' in cmd.data && cmd.data.type === type : true).map(cmd => [cmd.name, cmd as InstanceType<T>]));
+      return new Collection<string, InstanceType<T>>(commands.filter(cmd => cmd instanceof cls && (type ? 'type' in cmd.data && cmd.data.type === type : true)).map(cmd => [cmd.name, cmd as InstanceType<T>]));
     }
 
     this.prefixCommands   = createCommandCollection(PrefixCommand);
