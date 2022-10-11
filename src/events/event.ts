@@ -1,11 +1,5 @@
 import { Client } from 'discord.js';
-
-export interface EventOptions {
-  name?: string;
-  event: string;
-  repeat?: boolean;
-  _default?: boolean | number;
-}
+import { EventOptions } from '../types';
 
 export class Event {
   name?: string;

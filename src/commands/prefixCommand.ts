@@ -1,13 +1,21 @@
-import { Collection, GuildChannel, GuildMember, Message, Role, User } from 'discord.js';
+import {
+  Collection,
+  Message,
+} from 'discord.js';
 
-import { Command, BaseCommandData } from './command.js';
+import {
+  BaseCommandData,
+  Prefix,
+  PrefixCommandArguments,
+  PrefixCommandData,
+  PrefixCommandOptionData,
+  PrefixCommandOptionType,
+  PrefixCommandOptionTypeString,
+  ResolvedPrefixCommandOptionType,
+} from '../types.js';
+
+import { Command } from './command.js';
 import * as log from '../logging.js';
-
-export interface Prefix {
-  get(message: Message): string | undefined;
-  test(message: Message): boolean;
-  mention: boolean;
-}
 
 export function stringPrefix(prefix: string, mention = true): Prefix {
   return {
@@ -25,64 +33,6 @@ export function regexPrefix(prefix: RegExp, mention = true): Prefix {
   }
 }
 
-
-export enum PrefixCommandOptionType {
-  STRING,
-  NUMBER,
-  INTEGER,
-  USER,
-  MEMBER,
-  USERLIKE,
-  ROLE,
-  CHANNEL,
-  MESSAGE,
-}
-
-export type PrefixCommandOptionTypeString = 
-  | 'STRING'
-  | 'NUMBER'
-  | 'INTEGER'
-  | 'USER'
-  | 'MEMBER'
-  | 'USERLIKE'
-  | 'ROLE'
-  | 'CHANNEL'
-  | 'MESSAGE'
-
-export interface PrefixCommandOptionData {
-  type: PrefixCommandOptionType | PrefixCommandOptionTypeString;
-  name: string;
-  description?: string;
-  strict: boolean;
-  required: boolean;
-}
-
-export interface PrefixCommandData {
-  name: string;
-  description?: string;
-  options?: PrefixCommandOptionData[];
-}
-
-export type PrefixCommandOptionOptions = {
-  type?: PrefixCommandOptionType | PrefixCommandOptionTypeString;
-  name: string;
-  description?: string;
-  strict?: boolean;
-  required?: boolean;
-} | string;
-
-
-export type ResolvedPrefixCommandOptionType = 
-  | string
-  | number
-  | User
-  | GuildMember
-  | Role
-  | GuildChannel
-  | Message
-
-export type PrefixCommandArguments<Parsed = boolean> = Parsed extends true ? Collection<string, ResolvedPrefixCommandOptionType> & { raw: string[] } : string[];
-
 export class PrefixCommand extends Command {
   run: (message: Message, args: PrefixCommandArguments) => any;
   options?: PrefixCommandOptionData[];
@@ -90,22 +40,26 @@ export class PrefixCommand extends Command {
   constructor(data: BaseCommandData<PrefixCommandData>, run: (message: Message, args: PrefixCommandArguments) => any) {
     super(data);
     this.run = run;
-    this.options = data.options;
+    this.options = data.options?.map(option => ({
+      required: false,
+      strict: true,
+      ...option,
+    }));
   }
 
   async execute(message: Message, args: string[]) {
     if (!super.check(message)) return;
 
     const resolveType = (type: PrefixCommandOptionTypeString | PrefixCommandOptionType) => typeof type === 'string' ? ({
-      STRING: 0,
-      NUMBER: 1,
-      INTEGER: 2,
-      USER: 3,
-      MEMBER: 4,
-      USERLIKE: 5,
-      ROLE: 6,
-      CHANNEL: 7,
-      MESSAGE: 8,
+      STRING:   PrefixCommandOptionType.STRING,
+      NUMBER:   PrefixCommandOptionType.NUMBER,
+      INTEGER:  PrefixCommandOptionType.INTEGER,
+      USER:     PrefixCommandOptionType.USER,
+      MEMBER:   PrefixCommandOptionType.MEMBER,
+      USERLIKE: PrefixCommandOptionType.USERLIKE,
+      ROLE:     PrefixCommandOptionType.ROLE,
+      CHANNEL:  PrefixCommandOptionType.CHANNEL,
+      MESSAGE:  PrefixCommandOptionType.MESSAGE,
     })[type] : type;
 
 
@@ -120,33 +74,33 @@ export class PrefixCommand extends Command {
         const value = await (async () => {
           if (!input) return;
           switch (resolveType(arg.type)) {
-            case 0: {
+            case PrefixCommandOptionType.STRING: {
               return input;
             }
 
-            case 1: {
+            case PrefixCommandOptionType.NUMBER: {
               const number = Number(input);
               return Number.isFinite(number) && number;
             }
 
-            case 2: {
+            case PrefixCommandOptionType.INTEGER: {
               const int = parseInt(input);
               return Number.isSafeInteger(int) && int;
             }
 
-            case 3: {
+            case PrefixCommandOptionType.USER: {
               const match = input.match(/^(\d+)|<@!?(\d+)>$/);
               const id = match?.[1] || match?.[2];
               return id && await message.client.users.fetch(id).catch(()=>{});
             }
 
-            case 4: {
+            case PrefixCommandOptionType.MEMBER: {
               const match = input.match(/^(\d+)|<@!?(\d+)>$/);
               const id = match?.[1] || match?.[2];
               return id && await message.guild?.members.fetch(id).catch(()=>{});
             }
 
-            case 5: {
+            case PrefixCommandOptionType.USERLIKE: {
               const match = input.match(/^(\d+)|<@!?(\d+)>$/);
               const id = match?.[1] || match?.[2];
               return id && (
@@ -155,19 +109,19 @@ export class PrefixCommand extends Command {
               );
             }
 
-            case 6: {
+            case PrefixCommandOptionType.ROLE: {
               const match = input.match(/^(\d+)|<@&(\d+)>$/);
               const id = match?.[1] || match?.[2];
               return id && await message.guild?.roles.fetch(id).catch(()=>{});
             }
 
-            case 7: {
+            case PrefixCommandOptionType.CHANNEL: {
               const match = input.match(/^(\d+)|<#(\d+)>$/);
               const id = match?.[1] || match?.[2];
               return id && await message.guild?.channels.fetch(id).catch(()=>{});
             }
             
-            case 8: {
+            case PrefixCommandOptionType.MESSAGE: {
               return await message.channel.messages.fetch(input).catch(()=>{});
             }
           }
@@ -183,6 +137,7 @@ export class PrefixCommand extends Command {
     }
 
     try {
+      if (!await this.check(message)) return;
       await this.run(message, parsed);
     } catch (err) {
       log.error(err);
@@ -190,17 +145,5 @@ export class PrefixCommand extends Command {
     }
 
     return;
-  }
-
-  static options(options: PrefixCommandOptionOptions | PrefixCommandOptionOptions[]): PrefixCommandOptionData[] {
-    if (Array.isArray(options)) return options.map(opt => PrefixCommand.options(opt)[0] as PrefixCommandOptionData);
-    if (typeof options === 'string') return PrefixCommand.options({ name: options.toLowerCase() });
-    return [{
-      name: options.name,
-      description: options.description,
-      type: options.type ?? 'STRING',
-      required: options.required ?? false,
-      strict: options.strict ?? true,
-    }];
   }
 }

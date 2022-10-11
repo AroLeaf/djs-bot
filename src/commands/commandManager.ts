@@ -1,31 +1,69 @@
-import { Collection, Client } from 'discord.js';
+import {
+  Collection,
+  Client,
+  Constructable,
+} from 'discord.js';
 
 import { Command } from './command.js';
-import { ContextCommand, ModalHandler, SlashCommand, Subcommand } from './appCommand.js';
+import { ContextCommand } from './contextCommand.js';
+import { ModalHandler } from './modalHandler.js';
 import { PrefixCommand } from './prefixCommand.js';
+import { SlashCommand } from './slashCommand.js';
+import { Subcommand } from './subCommand.js';
 
 export class CommandManager {
   client: Client;
-  appCommands: Collection<string, ContextCommand | ModalHandler | SlashCommand>;
   prefixCommands: Collection<string, PrefixCommand>
+  slashCommands: Collection<string, SlashCommand>;
+  userCommands: Collection<string, ContextCommand>;
+  messageCommands: Collection<string, ContextCommand>
+  modalHandlers: Collection<string, ModalHandler>;
 
   constructor(client: Client, commands: Command[] = []) {
     this.client = client;
-    this.appCommands = new Collection(commands.filter(cmd => !(cmd instanceof Subcommand || cmd instanceof PrefixCommand)).map(cmd => [cmd.name, <ContextCommand | ModalHandler | SlashCommand>cmd]));
-    this.prefixCommands = new Collection(commands.filter(cmd => cmd instanceof PrefixCommand).map(cmd => [cmd.name, <PrefixCommand>cmd]));
+
+    function createCommandCollection<T extends Constructable<Command>>(cls: T) {
+      return new Collection<string, InstanceType<T>>(commands.filter(cmd => cmd instanceof cls).map(cmd => [cmd.name, cmd as InstanceType<T>]));
+    }
+
+    this.prefixCommands   = createCommandCollection(PrefixCommand);
+    this.slashCommands    = createCommandCollection(SlashCommand);
+    this.userCommands     = createCommandCollection(ContextCommand);
+    this.messageCommands  = createCommandCollection(ContextCommand);
+    this.modalHandlers    = createCommandCollection(ModalHandler);
   }
 
-  resolveAppCommand(command: ContextCommand | ModalHandler | SlashCommand | Subcommand | string) {
+  resolveSlashCommand(command: SlashCommand | Subcommand | string) {
     if (command instanceof Subcommand) return command.command;
     if (typeof command !== 'string') return command;
 
     const [base] = command.split(/\.(.*)/) as [string, string | undefined];
-    return this.appCommands.get(base);
+    return this.slashCommands.get(base);
+  }
+
+  resolveSubCommand(command: Subcommand | string) {
+    if (typeof command !== 'string') return command;
+    const [base, sub] = command.split(/\.(.*)/) as [string, string | undefined];
+    return this.slashCommands.get(base)?.subcommands.get(sub!);
+  }
+
+  resolveUserCommand(command: ContextCommand | string) {
+    if (typeof command !== 'string') return command;
+    return this.userCommands.get(command);
+  }
+
+  resolveMessageCommand(command: ContextCommand | string) {
+    if (typeof command !== 'string') return command;
+    return this.messageCommands.get(command);
   }
 
   resolvePrefixCommand(command: PrefixCommand | string) {
-    return (typeof command === 'string') 
-      ? this.prefixCommands.get(command)
-      : command;
+    if (typeof command !== 'string') return command;
+    return this.prefixCommands.get(command);
+  }
+
+  resolveModalHandler(handler: ModalHandler | string) {
+    if (typeof handler !== 'string') return handler;
+    return this.modalHandlers.get(handler);
   }
 }

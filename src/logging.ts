@@ -1,21 +1,13 @@
 import { WriteStream } from 'tty';
 import { inspect } from 'util';
+import { LogOptions, LogType } from './types';
 
-export const config = {
+export const config: Required<LogOptions> = {
   fancy: true,
   level: 2,
 }
 
-export type LogOptions = Partial<typeof config>;
-
 const ansi = (...codes: number[]) => `\x1b[${codes.join(';')}m`;
-
-export enum LogType {
-  INFO,
-  WARN,
-  ERROR, 
-}
-
 
 export function info(subject: any, options?: Partial<typeof config>) {
   if (config.level > 2) {
