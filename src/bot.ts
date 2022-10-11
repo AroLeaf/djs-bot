@@ -37,11 +37,11 @@ export class Bot extends Client {
     options.guilds ??= [];
     options.global ??= false;
 
-    const commands = <ApplicationCommandData[]>[
+    const commands = [
       ...this.commands.slashCommands.values(),
       ...this.commands.userCommands.values(),
       ...this.commands.messageCommands.values(),
-    ];
+    ].map(cmd => cmd.data);
 
     const isDifferent = (commands: Collection<string, ApplicationCommand<{ guild: GuildResolvable }>>) => {
       for (const type of [

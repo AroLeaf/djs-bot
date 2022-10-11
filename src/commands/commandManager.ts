@@ -2,6 +2,7 @@ import {
   Collection,
   Client,
   Constructable,
+  ApplicationCommandType,
 } from 'discord.js';
 
 import { Command } from './command.js';
@@ -22,14 +23,14 @@ export class CommandManager {
   constructor(client: Client, commands: Command[] = []) {
     this.client = client;
 
-    function createCommandCollection<T extends Constructable<Command>>(cls: T) {
-      return new Collection<string, InstanceType<T>>(commands.filter(cmd => cmd instanceof cls).map(cmd => [cmd.name, cmd as InstanceType<T>]));
+    function createCommandCollection<T extends Constructable<Command>>(cls: T, type?: ApplicationCommandType) {
+      return new Collection<string, InstanceType<T>>(commands.filter(cmd => cmd instanceof cls && type ? 'type' in cmd.data && cmd.data.type === type : true).map(cmd => [cmd.name, cmd as InstanceType<T>]));
     }
 
     this.prefixCommands   = createCommandCollection(PrefixCommand);
-    this.slashCommands    = createCommandCollection(SlashCommand);
-    this.userCommands     = createCommandCollection(ContextCommand);
-    this.messageCommands  = createCommandCollection(ContextCommand);
+    this.slashCommands    = createCommandCollection(SlashCommand, ApplicationCommandType.ChatInput);
+    this.userCommands     = createCommandCollection(ContextCommand, ApplicationCommandType.User);
+    this.messageCommands  = createCommandCollection(ContextCommand, ApplicationCommandType.Message);
     this.modalHandlers    = createCommandCollection(ModalHandler);
   }
 
