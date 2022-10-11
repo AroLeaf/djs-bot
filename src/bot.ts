@@ -88,6 +88,11 @@ export class Bot extends Client {
         return cmd && cmd.execute(interaction);
       }
 
+      if (interaction.isMessageContextMenuCommand()) {
+        const cmd = interaction.client.commands?.resolveMessageCommand(interaction.commandName);
+        return cmd && cmd.execute(interaction);
+      }
+
       if (interaction.isModalSubmit()) {
         const cmd = interaction.client.commands?.resolveModalHandler(interaction.customId);        
         return cmd && cmd.execute(interaction);
