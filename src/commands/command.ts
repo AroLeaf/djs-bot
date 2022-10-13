@@ -53,8 +53,8 @@ export class Command {
         ? member?.permissionsIn(request.channel)
         : member?.permissions;
 
-      if (!permissions(request.member)?.has(this.perms.user)) return reject(`You are missing permissions:\n${permissions(request.member)!.missing(this.perms.user).join('\n')}`);
-      if (!permissions(request.guild.members.me)?.has(this.perms.self)) return reject(`I am missing permissions:\n${permissions(request.guild.members.me)!.missing(this.perms.self).join('\n')}`);
+      if (this.perms.user.bitfield && !permissions(request.member)?.has(this.perms.user)) return reject(`You are missing permissions:\n${permissions(request.member)?.missing(this.perms.user).join('\n')}`);
+      if (this.perms.self.bitfield && !permissions(request.guild.members.me)?.has(this.perms.self)) return reject(`I am missing permissions:\n${permissions(request.guild.members.me)?.missing(this.perms.self).join('\n')}`);
     }
     
     return true;
