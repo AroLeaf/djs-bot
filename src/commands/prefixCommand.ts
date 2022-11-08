@@ -47,7 +47,7 @@ export class PrefixCommand extends Command {
   async execute(message: Message, args: string) {
     if (!super.check(message)) return;
 
-    let parsed: PrefixCommandArguments<ResolvedPrefixCommandOptionType> = args.split(/ +/);
+    let parsed: PrefixCommandArguments<ResolvedPrefixCommandOptionType> | void = args.split(/ +/);
 
     const transformer = async (input: string, name: string, option?: string): Promise<ResolvedPrefixCommandOptionType> => {
       const resolveType = (type: PrefixCommandOptionTypeString | PrefixCommandOptionType) => typeof type === 'string' ? PrefixCommandOptionType[type] : type;
@@ -130,7 +130,11 @@ export class PrefixCommand extends Command {
         args: this.args,
         options: this.options,
         transformer,
-      });
+      }).catch(async (e: Error) => { await message.reply({
+        content: e.message,
+        allowedMentions: { repliedUser: false, parse: [] },
+      }) });
+      if (!parsed) return;
     }
 
     try {

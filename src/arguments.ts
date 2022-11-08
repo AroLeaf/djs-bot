@@ -43,23 +43,22 @@ export async function parse<T>(str: string, { args = [], options = [], transform
   async function parseOption(optionData: ArgumentParserOptionData) {
     if (!optionData.args?.length) return true;
     
-    const option: ArgumentParserResultArguments<T> = {};
+    let option: ArgumentParserResultArguments<T> = {};
     
     for (const argumentData of optionData.args) {
       const token = tokens[i];
-      if (token.type !== 'arg') {
-        if (argumentData.required) throw new Error(`Missing argument \`${argumentData.name}\` for option \`${optionData.name}\``);
+      if (token?.type !== 'arg') {
+        if (argumentData.required) throw new Error(`Missing required argument \`${argumentData.name}\` for option \`${optionData.name}\`.`);
         i++;
         continue;
       }
-      const value = await transformer(token.value, argumentData.name, optionData.name);
-      if (!value) {
-        if (argumentData.required) throw new Error(`Invalid argument \`${argumentData.name}\` for option \`${optionData.name}\``);
-        i++
-        continue;
-      }
-      option[argumentData.name] = value;
+      const value = await transformer(token.value, argumentData.name, optionData.name).catch(e => {
+        if (argumentData.required) throw e;
+      });
+      if (value == null) continue;
       i++;
+      if (optionData.args.length === 1 && optionData.name === argumentData.name) return value;
+      option[argumentData.name] = value;
     }
 
     return option;
@@ -72,7 +71,7 @@ export async function parse<T>(str: string, { args = [], options = [], transform
         i++;
         for (const short of value) {
           const optionData = options.find(opt => opt.short === short);
-          if (!optionData) throw new Error(`Unknown short flag \`${short}\``);
+          if (!optionData) throw new Error(`Unknown short flag \`${short}\`.`);
           out.options[optionData.name] = await parseOption(optionData);
         }
         break;
@@ -81,7 +80,7 @@ export async function parse<T>(str: string, { args = [], options = [], transform
       case 'flag': {
         i++;
         const optionData = options.find(opt => opt.name === value);
-        if (!optionData) throw new Error(`Unknown flag \`${value}\``);
+        if (!optionData) throw new Error(`Unknown flag \`${value}\`.`);
         out.options[optionData.name] = await parseOption(optionData);
         break;
       }
@@ -95,7 +94,7 @@ export async function parse<T>(str: string, { args = [], options = [], transform
         const res = await transformer(value, argumentData.name).catch(e => {
           if (argumentData.required) throw e;
         });
-        out.args[argumentData.name] = res!;
+        if (res != null) out.args[argumentData.name] = res;
         i++;
         break;
       }
@@ -104,6 +103,14 @@ export async function parse<T>(str: string, { args = [], options = [], transform
         out.rest = value;
       }
     }
+  }
+
+  for (const option of options) if (!out.options[option.name] && option.required) {
+    throw new Error(`Missing required option \`${option.name}\`.`);
+  }
+
+  for (const arg of args) if (!out.args[arg.name] && arg.required) {
+    throw new Error(`Missing required argument \`${arg.name}\`.`);
   }
 
   return out;

@@ -213,6 +213,7 @@ export interface ArgumentParserOptionData {
   name: string
   short?: string
   args?: ArgumentParserArgumentData[]
+  required?: boolean
 }
 
 export interface ArgumentParserOptions<T = any> {
@@ -228,7 +229,7 @@ export interface ArgumentParserResultArguments<T> {
 export interface ArgumentParserResults<T> {
   args: ArgumentParserResultArguments<T>
   options: {
-    [key: string]: ArgumentParserResultArguments<T> | boolean
+    [key: string]: ArgumentParserResultArguments<T> | T | boolean
   }
   rest?: string
 }
