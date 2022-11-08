@@ -112,8 +112,7 @@ export class Bot extends Client {
       ).exec(message.content)?.[0];
       if (!prefix) return;
 
-      const args = message.content.slice(prefix.length).split(/ +/);
-      const commandName = args.shift();
+      const [commandName, args = ''] = message.content.slice(prefix.length).split(/ +(.*)/s);
       const cmd = commandName && message.client.commands?.resolvePrefixCommand(commandName);
       if (cmd) cmd.execute(message, args);
     }),

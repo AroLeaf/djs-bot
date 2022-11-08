@@ -37,7 +37,7 @@ export class Command {
       const data = {
         content: reason,
         ephemeral: true,
-        allowedMentions: { repliedUser: false },
+        allowedMentions: { repliedUser: false, parse: [] },
       };
       request instanceof CommandInteraction<"cached"> && (request.replied || request.deferred)
         ? request.replied ? request.followUp(data) : request.editReply(data)

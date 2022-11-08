@@ -8,7 +8,6 @@ import {
   BitFieldResolvable,
   ChatInputApplicationCommandData,
   ClientOptions,
-  Collection,
   GuildBasedChannel,
   GuildMember,
   Message,
@@ -128,18 +127,26 @@ export type PrefixCommandOptionTypeString =
   | 'CHANNEL'
   | 'MESSAGE'
 
-export interface PrefixCommandOptionData {
+export interface PrefixCommandArgumentData {
   type: PrefixCommandOptionType | PrefixCommandOptionTypeString;
   name: string;
   description?: string;
-  strict?: boolean;
   required?: boolean;
+}
+
+export interface PrefixCommandOptionData {
+  name: string;
+  short?: string;
+  description?: string;
+  required?: boolean;
+  args?: PrefixCommandArgumentData[];
 }
 
 export interface PrefixCommandData {
   name: string;
   description?: string;
   options?: PrefixCommandOptionData[];
+  args?: PrefixCommandArgumentData[];
 }
 
 
@@ -152,7 +159,7 @@ export type ResolvedPrefixCommandOptionType =
   | GuildBasedChannel
   | Message
 
-export type PrefixCommandArguments<Parsed = boolean> = Parsed extends true ? Collection<string, ResolvedPrefixCommandOptionType> & { raw: string[] } : string[];
+export type PrefixCommandArguments<T> = ArgumentParserResults<T> | string[];
 
 
 
@@ -196,3 +203,32 @@ export type LogOptions = {
   fancy?: boolean, 
   level?: number,
 };
+
+export interface ArgumentParserArgumentData {
+  name: string
+  required?: boolean
+}
+
+export interface ArgumentParserOptionData {
+  name: string
+  short?: string
+  args?: ArgumentParserArgumentData[]
+}
+
+export interface ArgumentParserOptions<T = any> {
+  args?: ArgumentParserArgumentData[]
+  options?: ArgumentParserOptionData[]
+  transformer?: (arg: string, name: string, option?: string) => Promise<T>
+}
+
+export interface ArgumentParserResultArguments<T> {
+  [key: string]: T
+}
+
+export interface ArgumentParserResults<T> {
+  args: ArgumentParserResultArguments<T>
+  options: {
+    [key: string]: ArgumentParserResultArguments<T> | boolean
+  }
+  rest?: string
+}
