@@ -2,18 +2,15 @@ import {
   ApplicationCommand,
   ApplicationCommandData,
   ApplicationCommandType,
-  AutocompleteInteraction,
   Client,
   Collection,
   Events,
   GuildResolvable,
-  Interaction,
-  Message 
 } from 'discord.js';
-import XRegExp from 'xregexp';
+import * as defaultEvents from './events/default/index';
 
 import { CommandManager } from './commands';
-import { EventManager, Event } from './events';
+import { EventManager } from './events';
 import { BotOptions, CommandRegisterOptions } from './types';
 
 export class Bot extends Client {
@@ -22,16 +19,22 @@ export class Bot extends Client {
   owners: string[];
 
   constructor(options: BotOptions) {
-    options.intents ||= [1<<0, 1<<9];
+    options.intents ||= [ 1<<0, 1<<9 ];
     super(options);
-    this.owners = (options.owners || [options.owner] || []) as string[];
-    this.commands = new CommandManager(this, options.commands);
-    this.events = new EventManager(this, (options.events || []).concat(Bot.defaultEvents));
     
+    this.owners = (options.owners || [options.owner] || []) as string[];
     this.prefix = options.prefix;
+    
+    this.commands = new CommandManager(this, options.commands);
+    this.events = new EventManager(this, (options.events || []).concat(Object
+      .entries(defaultEvents)
+      .filter(([k]) => options.defaultEvents?.[k] ?? true)
+      .map(([,e]) => e)
+    ));
     
     if (options.register) this.on(Events.ClientReady, () => this.register(options.register!));
   }
+
 
   async register(options: CommandRegisterOptions = {}) {
     options.guilds ??= [];
@@ -76,45 +79,5 @@ export class Bot extends Client {
   }
 
 
-  static defaultEvents = [
-    new Event({ event: Events.InteractionCreate, _default: true }, async function (interaction: Interaction<"cached">) {
-      if (interaction.isChatInputCommand()) {
-        const cmd = interaction.client.commands?.resolveSlashCommand(interaction.commandName);
-        return cmd && cmd.execute(interaction);
-      }
-  
-      if (interaction.isUserContextMenuCommand()) {
-        const cmd = interaction.client.commands?.resolveUserCommand(interaction.commandName);
-        return cmd && cmd.execute(interaction);
-      }
-
-      if (interaction.isMessageContextMenuCommand()) {
-        const cmd = interaction.client.commands?.resolveMessageCommand(interaction.commandName);
-        return cmd && cmd.execute(interaction);
-      }
-
-      if (interaction.isModalSubmit()) {
-        const cmd = interaction.client.commands?.resolveModalHandler(interaction.customId);        
-        return cmd && cmd.execute(interaction);
-      }
-
-      if (interaction.isAutocomplete()) {
-        const cmd = interaction.client.commands?.resolveSlashCommand(interaction.commandName);        
-        return cmd && cmd.autocomplete(<AutocompleteInteraction<'cached'>>interaction);
-      }
-    }),
-
-    new Event({ event: Events.MessageCreate, _default: true }, async function (message: Message) {
-      if (message.author.bot) return;
-      const prefix = XRegExp(message.client.prefix 
-        ? `^(<@${message.client.user!.id}>|${XRegExp.escape(message.client.prefix)})` 
-        : `^<@${message.client.user!.id}>`
-      ).exec(message.content)?.[0];
-      if (!prefix) return;
-
-      const [commandName, args = ''] = message.content.slice(prefix.length).split(/ +(.*)/s);
-      const cmd = commandName && message.client.commands?.resolvePrefixCommand(commandName);
-      if (cmd) cmd.execute(message, args);
-    }),
-  ];
+  //
 }

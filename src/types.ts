@@ -24,7 +24,7 @@ import type { EventManager, Event } from './events';
 
 
 
-// CLIENT
+// BOT
 
 declare module 'discord.js' {
   interface Client {
@@ -43,6 +43,7 @@ export interface CommandRegisterOptions {
 export interface BotOptions extends ClientOptions {
   commands?: Command[];
   events?: Event[];
+  defaultEvents?: { [key: string]: boolean };
   owner?: string;
   owners?: string[];
   prefix?: string;

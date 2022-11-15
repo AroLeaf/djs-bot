@@ -17,16 +17,16 @@ import {
 import * as log from '../logging.js';
 import { objectOmit } from '../util.js';
 import { Command } from './command.js';
-import { SlashCommand } from './slashCommand.js';
+import { SlashCommand, parseOptions } from './slashCommand.js';
 
 export class Subcommand extends Command {
   command: SlashCommand;
   data: StandaloneSubcommandData;
   group?: string;
   autocompleteHandlers = new Collection<string, autocompleteHandler>();
-  run: (interaction: ChatInputCommandInteraction) => any;
+  run: (interaction: ChatInputCommandInteraction, options?: any) => any;
 
-  constructor(command: SlashCommand, data: BaseCommandData<StandaloneSubcommandData>, run: (interaction: ChatInputCommandInteraction) => any) {
+  constructor(command: SlashCommand, data: BaseCommandData<StandaloneSubcommandData>, run: (interaction: ChatInputCommandInteraction, options?: any) => any) {
     super(data);
     data.type = 1;
     this.data = {
@@ -68,7 +68,7 @@ export class Subcommand extends Command {
   async execute(interaction: ChatInputCommandInteraction<"cached">) {
     try {
       if (!await this.check(interaction)) return;
-      await this.run(interaction);
+      await this.run(interaction, parseOptions(interaction.options.data));
     } catch (err) {
       log.error(err);
       const res = {

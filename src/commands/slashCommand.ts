@@ -1,10 +1,11 @@
-
 import {
   ApplicationCommandOptionData,
+  ApplicationCommandOptionType,
   AutocompleteInteraction,
   ChatInputApplicationCommandData,
   ChatInputCommandInteraction,
   Collection,
+  CommandInteractionOption,
 } from 'discord.js';
 
 import {
@@ -19,14 +20,38 @@ import { Command } from './command.js';
 import { Subcommand } from './subCommand.js';
 import { objectOmit } from '../util.js';
 
+
+export function parseOptions(options: ReadonlyArray<CommandInteractionOption<'cached'>>): any {
+  if (!options?.length) return {};
+  if ([
+    ApplicationCommandOptionType.SubcommandGroup,
+    ApplicationCommandOptionType.Subcommand,
+  ].includes(options[0].type)) return parseOptions(options[0].options!);
+  return Object.fromEntries(options.map(option => {
+    switch(option.type) {
+      case ApplicationCommandOptionType.String:
+      case ApplicationCommandOptionType.Number:
+      case ApplicationCommandOptionType.Integer:
+      case ApplicationCommandOptionType.Boolean:      return [option.name, option.value!];
+      case ApplicationCommandOptionType.User:         return [option.name, Object.assign(option.user!, { member: option.member })];
+      case ApplicationCommandOptionType.Channel:      return [option.name, option.channel!];
+      case ApplicationCommandOptionType.Role:         return [option.name, option.role!];
+      case ApplicationCommandOptionType.Mentionable:  return [option.name, option.role || Object.assign(option.user!, { member: option.member })];
+      case ApplicationCommandOptionType.Attachment:   return [option.name, option.attachment!];
+      default: throw new Error();
+    }
+  }));
+}
+
+
 export class SlashCommand extends Command {
   data: ChatInputApplicationCommandData;
   guilds: string[];
   subcommands = new Collection<string, Subcommand>();
   autocompleteHandlers = new Collection<string, autocompleteHandler>();
-  run: (interaction: ChatInputCommandInteraction) => any;
+  run: (interaction: ChatInputCommandInteraction, options?: any) => any;
 
-  constructor(data: BaseCommandData<SlashCommandData>, run: (interaction: ChatInputCommandInteraction) => any) {
+  constructor(data: BaseCommandData<SlashCommandData>, run: (interaction: ChatInputCommandInteraction, options: any) => any) {
     super(data);
     data.type ||= 1;
     this.data = objectOmit(data, 'guilds', 'flags');
@@ -45,7 +70,7 @@ export class SlashCommand extends Command {
   }
 
 
-  subcommand(data: BaseCommandData<StandaloneSubcommandData>, run: (interaction: ChatInputCommandInteraction) => any) {
+  subcommand(data: BaseCommandData<StandaloneSubcommandData>, run: (interaction: ChatInputCommandInteraction, options?: any) => any) {
     return new Subcommand(this, data, run);
   }
 
@@ -61,7 +86,7 @@ export class SlashCommand extends Command {
 
     try {
       if (!await this.check(interaction)) return;
-      await this.run(interaction);
+      await this.run(interaction, parseOptions(interaction.options.data));
     } catch (err) {
       log.error(err);
       const res = {

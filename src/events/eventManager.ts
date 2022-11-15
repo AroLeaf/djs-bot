@@ -1,7 +1,5 @@
 import { Client } from 'discord.js';
-
 import { Event } from './event.js';
-import { partition } from '../util.js';
 
 export class EventManager {
   client: Client;
@@ -10,8 +8,7 @@ export class EventManager {
   constructor(client: Client, events: Event[] = []) {
     this.client = client;
     this.cache = events;
-    const [rest, def] = partition(events, e => !e._default);
-    for (const event of rest.concat(def)) {
+    for (const event of events) {
       event.init(client);
     }
   }

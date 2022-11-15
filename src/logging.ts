@@ -10,15 +10,11 @@ export const config: Required<LogOptions> = {
 const ansi = (...codes: number[]) => `\x1b[${codes.join(';')}m`;
 
 export function info(subject: any, options?: Partial<typeof config>) {
-  if (config.level > 2) {
-    write(process.stdout, LogType.INFO, subject, options);
-  }
+  if (config.level > 2) write(process.stdout, LogType.INFO, subject, options);
 }
 
 export function warn(subject: any, options?: Partial<typeof config>) {
-  if (config.level > 1) {
-    write(process.stderr, LogType.WARN, subject, options);
-  }
+  if (config.level > 1) write(process.stderr, LogType.WARN, subject, options);
 }
 
 export function error(subject: any, options?: Partial<typeof config>) {
