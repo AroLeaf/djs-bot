@@ -38,7 +38,8 @@ export async function parse<T>(str: string, { args = [], options = [], transform
     options: {},
   }
 
-  let i = 0;
+  let currentToken = 0;
+  let currentArg = 0;
 
   async function parseOption(optionData: ArgumentParserOptionData) {
     if (!optionData.args?.length) return true;
@@ -46,17 +47,17 @@ export async function parse<T>(str: string, { args = [], options = [], transform
     let option: ArgumentParserResultArguments<T> = {};
     
     for (const argumentData of optionData.args) {
-      const token = tokens[i];
+      const token = tokens[currentToken];
       if (token?.type !== 'arg') {
         if (argumentData.required) throw new Error(`Missing required argument \`${argumentData.name}\` for option \`${optionData.name}\`.`);
-        i++;
+        currentToken++;
         continue;
       }
       const value = await transformer(token.value, argumentData.name, optionData.name).catch(e => {
         if (argumentData.required) throw e;
       });
       if (value == null) continue;
-      i++;
+      currentToken++;
       if (optionData.args.length === 1 && optionData.name === argumentData.name) return value;
       option[argumentData.name] = value;
     }
@@ -64,11 +65,11 @@ export async function parse<T>(str: string, { args = [], options = [], transform
     return option;
   }
 
-  while (tokens[i]) {
-    const { type, value } = tokens[i];
+  while (tokens[currentToken]) {
+    const { type, value } = tokens[currentToken];
     switch(type) {
       case 'flags': {
-        i++;
+        currentToken++;
         for (const short of value) {
           const optionData = options.find(opt => opt.short === short);
           if (!optionData) throw new Error(`Unknown short flag \`${short}\`.`);
@@ -78,7 +79,7 @@ export async function parse<T>(str: string, { args = [], options = [], transform
       }
 
       case 'flag': {
-        i++;
+        currentToken++;
         const optionData = options.find(opt => opt.name === value);
         if (!optionData) throw new Error(`Unknown flag \`${value}\`.`);
         out.options[optionData.name] = await parseOption(optionData);
@@ -86,16 +87,19 @@ export async function parse<T>(str: string, { args = [], options = [], transform
       }
 
       case 'arg': {
-        const argumentData = args.find(arg => !out.args[arg.name]);
+        const argumentData = args[currentArg];
         if (!argumentData) {
-          i++;
+          currentToken++;
           continue;
         }
         const res = await transformer(value, argumentData.name).catch(e => {
           if (argumentData.required) throw e;
         });
-        if (res != null) out.args[argumentData.name] = res;
-        i++;
+        if (res != null) {
+          out.args[argumentData.name] = res;
+          currentToken++;
+        }
+        currentArg++;
         break;
       }
 
