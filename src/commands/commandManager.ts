@@ -27,11 +27,12 @@ export class CommandManager {
       return new Collection<string, InstanceType<T>>(commands.filter(cmd => cmd instanceof cls && (type ? 'type' in cmd.data && cmd.data.type === type : true)).map(cmd => [cmd.name, cmd as InstanceType<T>]));
     }
 
-    this.prefixCommands   = createCommandCollection(PrefixCommand);
     this.slashCommands    = createCommandCollection(SlashCommand, ApplicationCommandType.ChatInput);
     this.userCommands     = createCommandCollection(ContextCommand, ApplicationCommandType.User);
     this.messageCommands  = createCommandCollection(ContextCommand, ApplicationCommandType.Message);
     this.modalHandlers    = createCommandCollection(ModalHandler);
+    
+    this.prefixCommands   = new Collection<string, PrefixCommand>(commands.filter(cmd => cmd instanceof PrefixCommand).flatMap((cmd) => [[cmd.name, cmd as PrefixCommand], ...(cmd as PrefixCommand).aliases.map((alias: string) => [alias, cmd as PrefixCommand])] as [string, PrefixCommand][]));
   }
 
   resolveSlashCommand(command: SlashCommand | Subcommand | string) {

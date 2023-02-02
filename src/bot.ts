@@ -5,6 +5,7 @@ import {
   Client,
   Collection,
   Events,
+  GatewayIntentBits,
   GuildResolvable,
 } from 'discord.js';
 import * as defaultEvents from './events/default/index';
@@ -12,14 +13,16 @@ import * as defaultEvents from './events/default/index';
 import { CommandManager } from './commands';
 import { EventManager } from './events';
 import { BotOptions, CommandRegisterOptions } from './types';
+import { ComponentsManager } from './componentsManager';
 
 export class Bot extends Client {
   commands: CommandManager;
   events: EventManager;
+  components: ComponentsManager;
   owners: string[];
 
   constructor(options: BotOptions) {
-    options.intents ||= [ 1<<0, 1<<9 ];
+    options.intents ||= [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages ];
     super(options);
     
     this.owners = (options.owners || [options.owner] || []) as string[];
@@ -31,6 +34,7 @@ export class Bot extends Client {
       .filter(([k]) => options.defaultEvents?.[k] ?? true)
       .map(([,e]) => e)
     ));
+    this.components = new ComponentsManager();
     
     if (options.register) this.on(Events.ClientReady, () => this.register(options.register!));
   }
@@ -77,7 +81,4 @@ export class Bot extends Client {
       if (isDifferent(await guild.commands.fetch())) await guild.commands.set(commands);
     }
   }
-
-
-  //
 }

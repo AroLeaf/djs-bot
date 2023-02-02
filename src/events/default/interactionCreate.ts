@@ -27,4 +27,19 @@ export default new Event({ event: Events.InteractionCreate }, async function (in
     const cmd = interaction.client.commands?.resolveSlashCommand(interaction.commandName);        
     return cmd && cmd.autocomplete(<AutocompleteInteraction<'cached'>>interaction);
   }
+
+  if (interaction.isMessageComponent()) {
+    const component = interaction.client.components!.get(interaction.customId);
+    if (!component) return;
+    try {
+      await component.run(interaction);
+    } catch (error) {
+      console.error(error);
+      const replyData = {
+        content: 'An error occurred while running this component.',
+        ephemeral: true,
+      }
+      interaction.replied ? interaction.followUp(replyData) : interaction.deferred ? interaction.editReply(replyData) : interaction.reply(replyData);
+    }
+  }
 })

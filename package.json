@@ -23,7 +23,7 @@
   "dependencies": {
     "@aroleaf/parser": "^2.3.1",
     "@swc/helpers": "^0.4.12",
-    "discord.js": "^14.6.0",
+    "discord.js": "^14.7.1",
     "file-ez": "^1.0.1",
     "xregexp": "^5.1.1"
   },

@@ -1,4 +1,6 @@
 import {
+  AnySelectMenuInteraction,
+  APIPartialEmoji,
   ApplicationCommandData,
   ApplicationCommandOptionData,
   ApplicationCommandSubCommandData,
@@ -6,8 +8,11 @@ import {
   AutocompleteInteraction,
   BitField,
   BitFieldResolvable,
+  ButtonInteraction,
+  ButtonStyle,
   ChatInputApplicationCommandData,
   ClientOptions,
+  ComponentType,
   GuildBasedChannel,
   GuildMember,
   Message,
@@ -15,11 +20,13 @@ import {
   PermissionResolvable,
   PermissionsBitField,
   Role,
+  SelectMenuComponentOptionData,
   User,
   UserApplicationCommandData,
 } from 'discord.js';
 
 import type { Command, CommandManager } from './commands';
+import type { ComponentsManager } from './componentsManager';
 import type { EventManager, Event } from './events';
 
 
@@ -30,6 +37,7 @@ declare module 'discord.js' {
   interface Client {
     commands?: CommandManager;
     events?: EventManager;
+    components?: ComponentsManager;
     owners?: string[];
     prefix?: string;
   }
@@ -146,6 +154,7 @@ export interface PrefixCommandOptionData {
 export interface PrefixCommandData {
   name: string;
   description?: string;
+  aliases?: string[];
   options?: PrefixCommandOptionData[];
   args?: PrefixCommandArgumentData[];
 }
@@ -192,18 +201,7 @@ export interface StandaloneSubcommandData extends ApplicationCommandSubCommandDa
 
 
 
-// MISC
-
-export enum LogType {
-  INFO,
-  WARN,
-  ERROR, 
-}
-
-export type LogOptions = {
-  fancy?: boolean, 
-  level?: number,
-};
+// ARGUMENT PARSER
 
 export interface ArgumentParserArgumentData {
   name: string
@@ -234,3 +232,60 @@ export interface ArgumentParserResults<T> {
   }
   rest?: string
 }
+
+
+
+// COMPONENTS
+
+export type ComponentHandler = (interaction: ButtonInteraction<'cached'> | AnySelectMenuInteraction<'cached'>) => any;
+
+export interface BaseComponentData {
+  type: ComponentType,
+}
+
+export interface ButtonComponentData<Managed extends boolean = false> extends BaseComponentData {
+  type: ComponentType.Button,
+  customId: Managed extends true ? never : string,
+  label?: string,
+  style: ButtonStyle,
+  emoji?: APIPartialEmoji,
+  url?: string,
+  disabled?: boolean,
+  run: Managed extends true ? ComponentHandler : never,
+}
+
+export interface SelectMenuComponentData<Managed extends boolean = false> extends BaseComponentData {
+  type: ComponentType.StringSelect | ComponentType.ChannelSelect | ComponentType.RoleSelect | ComponentType.UserSelect | ComponentType.MentionableSelect,
+  customId: Managed extends true ? never : string,
+  placeholder?: string,
+  minValues?: number,
+  maxValues?: number,
+  options: SelectMenuComponentOptionData[],
+  disabled?: boolean,
+  run: Managed extends true ? ComponentHandler : never,
+}
+
+export interface ActionRowData<Managed extends boolean = false> extends BaseComponentData {
+  type: ComponentType.ActionRow,
+  components: (ButtonComponentData<Managed> | SelectMenuComponentData<Managed>)[],
+}
+
+export type ActionRowComponentData<Managed extends boolean = false> = ButtonComponentData<Managed> | SelectMenuComponentData<Managed>;
+export type ComponentData<Managed extends boolean = false> = ActionRowData<Managed> | ActionRowComponentData<Managed>;
+
+export type ManagedComponentOptions = ActionRowData<true> | ActionRowComponentData<true>
+
+
+
+// MISC
+
+export enum LogType {
+  INFO,
+  WARN,
+  ERROR, 
+}
+
+export type LogOptions = {
+  fancy?: boolean, 
+  level?: number,
+};

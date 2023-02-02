@@ -36,12 +36,14 @@ export class PrefixCommand extends Command {
   run: (message: Message, args: PrefixCommandArguments<ResolvedPrefixCommandOptionType>) => any;
   options?: PrefixCommandOptionData[];
   args?: PrefixCommandArgumentData[];
+  aliases: string[];
 
   constructor(data: BaseCommandData<PrefixCommandData>, run: (message: Message, args: PrefixCommandArguments<ResolvedPrefixCommandOptionType>) => any) {
     super(data);
     this.run = run;
     this.args = data.args;
     this.options = data.options;
+    this.aliases = data.aliases ?? [];
   }
 
   async execute(message: Message, args: string) {
