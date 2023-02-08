@@ -16,6 +16,12 @@ import { Command } from './command.js';
 import * as log from '../logging.js';
 import * as Arguments from '../arguments.js';
 
+/**
+ * Creates a prefix object from a string.
+ * @param prefix - the string to use as a prefix
+ * @param mention - whether or not mentioning the bot should count as a prefix
+ * @returns a prefix object
+ */
 export function stringPrefix(prefix: string, mention = true): Prefix {
   return {
     get: () => prefix,
@@ -23,7 +29,13 @@ export function stringPrefix(prefix: string, mention = true): Prefix {
     mention,
   }
 }
-
+ 
+/**
+ * Creates a prefix object from a regular expression.
+ * @param prefix - the regular expression to use as a prefix
+ * @param mention - whether or not mentioning the bot should count as a prefix
+ * @returns a prefix object
+ */
 export function regexPrefix(prefix: RegExp, mention = true): Prefix {
   return {
     get: () => prefix.source,
@@ -32,12 +44,33 @@ export function regexPrefix(prefix: RegExp, mention = true): Prefix {
   }
 }
 
+/**
+ * A command that can be executed via a prefixed message.
+ * @example
+ * A simple ping command.
+ * ```js
+ * new PrefixCommand({
+ *   name: 'ping',
+ * }, (message) => {
+ *   return message.reply('pong');
+ * });
+ * ```
+ */
 export class PrefixCommand extends Command {
+  /** The function to run when this command is executed. */
   run: (message: Message, args: PrefixCommandArguments<ResolvedPrefixCommandOptionType>) => any;
+  /** Named options for this command. */
   options?: PrefixCommandOptionData[];
+  /** Positional arguments for this command. */
   args?: PrefixCommandArgumentData[];
+  /** Aliases for this command. */
   aliases: string[];
 
+  /**
+   * Creates a new PrefixCommand.
+   * @param data - the data for this command
+   * @param run - the function to run when this command is executed
+   */
   constructor(data: BaseCommandData<PrefixCommandData>, run: (message: Message, args: PrefixCommandArguments<ResolvedPrefixCommandOptionType>) => any) {
     super(data);
     this.run = run;
@@ -46,7 +79,12 @@ export class PrefixCommand extends Command {
     this.aliases = data.aliases ?? [];
   }
 
-  async execute(message: Message, args: string) {
+  /**
+   * Executes this command, notifying the user if an error occurs.
+   * @param message - the message to execute this command on
+   * @param args - the arguments to pass to this command
+   */
+  async execute(message: Message, args: string): Promise<any> {
     if (!super.check(message)) return;
 
     let parsed: PrefixCommandArguments<ResolvedPrefixCommandOptionType> | void = args.split(/ +/);

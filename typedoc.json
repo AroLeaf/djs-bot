@@ -1,0 +1,10 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "DJS-Bot",
+  "entryPoints": ["src/index.ts"],
+  "out": "docs",
+  "cname": "djs-bot.leaf.moe",
+  "skipErrorChecking": true,
+  "excludeExternals": true,
+  "readme": "readme.md",
+}

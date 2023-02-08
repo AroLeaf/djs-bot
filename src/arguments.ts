@@ -30,6 +30,15 @@ lexer
   .discard()
 
 
+/**
+ * A CLI-style argument parser.
+ * @param str - the string to parse
+ * @param options - the options for the parser
+ * @param options.args - positional arguments
+ * @param options.options - named arguments
+ * @param options.transformer - a function to transform arguments
+ * @returns the parsed arguments
+ */
 export async function parse<T>(str: string, { args = [], options = [], transformer = async arg => <T>arg }: ArgumentParserOptions<T> = {}) {
   const tokens = lexer.parse(str);
   

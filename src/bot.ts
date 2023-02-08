@@ -15,12 +15,24 @@ import { EventManager } from './events';
 import { BotOptions, CommandRegisterOptions } from './types';
 import { ComponentsManager } from './componentsManager';
 
+
+/**
+ * The main bot class.
+ */
 export class Bot extends Client {
+  /** The command manager for this bot. */
   commands: CommandManager;
+  /** The event manager for this bot. */
   events: EventManager;
+  /** The components manager for this bot. */
   components: ComponentsManager;
+  /** The owner(s) of this bot. */
   owners: string[];
 
+  /**
+   * Creates a new bot.
+   * @param options - the options for this bot
+   */
   constructor(options: BotOptions) {
     options.intents ||= [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages ];
     super(options);
@@ -34,12 +46,17 @@ export class Bot extends Client {
       .filter(([k]) => options.defaultEvents?.[k] ?? true)
       .map(([,e]) => e)
     ));
-    this.components = new ComponentsManager();
+    this.components = new ComponentsManager(this);
     
     if (options.register) this.on(Events.ClientReady, () => this.register(options.register!));
   }
 
 
+  /**
+   * Registers all slash commands of this bot.
+   * @param options - options for registering commands
+   * @returns a promise that resolves when all commands have been registered
+   */
   async register(options: CommandRegisterOptions = {}) {
     options.guilds ??= [];
     options.global ??= false;

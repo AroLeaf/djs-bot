@@ -1,11 +1,13 @@
-import { Collection, ComponentType } from 'discord.js';
+import { Client, Collection, ComponentType } from 'discord.js';
 import { ActionRowComponentData, ComponentData, ManagedComponentOptions } from './types';
 import * as util from './util';
 
 export class ComponentsManager {
   cache: Collection<string, ActionRowComponentData<true>>;
-
-  constructor() {
+  client: Client;
+  
+  constructor(client: Client) {
+    this.client = client;
     this.cache = new Collection();
   }
 

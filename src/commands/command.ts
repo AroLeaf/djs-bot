@@ -12,12 +12,19 @@ import {
 } from '../types';
 
 
-
+/**
+ * @abstract
+ */
 export class Command {
+  /** The name of this command. */
   name: string;
+  /** The description of this command. */
   description?: string;
+  /** Flags for this command. */
   flags: CommandFlagsBitField;
+  /** The raw data for this command. */
   data: CommandData;
+  /** Permissions required to run this command. */
   perms: CommandPermissions;
 
   constructor(data: CommandData) {
@@ -31,6 +38,11 @@ export class Command {
     };
   }
 
+  /**
+   * Checks if the command may be run. If not, it will notify the user.
+   * @param request - an interaction or message
+   * @returns true if the command may be run, false otherwise
+   */
   check(request: CommandInteraction<"cached"> | Message) {
     const user = request instanceof Message ? request.author:  request.user;
     function reject(reason: string) {
