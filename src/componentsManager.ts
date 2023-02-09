@@ -2,10 +2,20 @@ import { Client, Collection, ComponentType } from 'discord.js';
 import { ActionRowComponentData, ComponentData, ManagedComponentOptions } from './types';
 import * as util from './util';
 
+
+/**
+ * A class for managing components.
+ */
 export class ComponentsManager {
+  /** All components currently registered. */
   cache: Collection<string, ActionRowComponentData<true>>;
+  /** The client that instantiated this manager. */
   client: Client;
   
+  /**
+   * Creates a new components manager.
+   * @param client - the client instantiating this manager
+   */
   constructor(client: Client) {
     this.client = client;
     this.cache = new Collection();
@@ -19,6 +29,24 @@ export class ComponentsManager {
     return id;
   }
 
+  /**
+   * Registers a component.
+   * @param data - the data for this component
+   * @returns API-compatible component data
+   * @example
+   * ```js
+   * await channel.send({
+   *   content: 'Hello world!',
+   *   components: [channel.client.components.create({
+   *     type: ComponentType.Button,
+   *     label: 'Click me!',
+   *     style: ButtonStyle.Primary,
+   *     run: async (interaction) => {
+   *       return interaction.reply('You clicked me!');
+   *     },
+   *   })],
+   * });
+   */
   create(data: ManagedComponentOptions): ComponentData {
     if (Array.isArray(data)) data = { type: ComponentType.ActionRow, components: data };
 
@@ -32,6 +60,11 @@ export class ComponentsManager {
     return { ...util.objectOmit(data, 'run'), customId: id } as ComponentData;
   }
 
+  /**
+   * Gets a component by its id.
+   * @param id - the id of the component
+   * @returns the component if found, otherwise undefined
+   */
   get(id: string) {
     return this.cache.get(id);
   }

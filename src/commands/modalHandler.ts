@@ -7,6 +7,15 @@ import { Command } from './command.js';
 
 /**
  * A class for handling modal interactions.
+ * @example
+ * A simple modal handler that tells the user what they submitted.
+ * ```js
+ * new ModalHandler({
+ *   name: 'testform',
+ * }, async (interaction, fields) => {
+ *   return interaction.reply(`You submitted the form with the following fields: ${Object.entries(fields).map(([key, value]) => `${key}: ${value}`).join('\n')}`);
+ * });
+ * ```
  */
 export class ModalHandler extends Command {
   /** The function to run when receiving a matching modal. */

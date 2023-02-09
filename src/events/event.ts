@@ -4,6 +4,17 @@ import { EventOptions } from '../types';
 
 /**
  * A class for handling events.
+ * @example
+ * A simple event handler that logs when the bot is ready.
+ * ```js
+ * const event = new Event({
+ *   name: 'ready',
+ *   repeat: false,
+ *   event: Events.ClientReady,
+ * }, () => console.log('ready!'));
+ * 
+ * event.init(client);
+ * ```
  */
 export class Event {
   /** The name of this event. */

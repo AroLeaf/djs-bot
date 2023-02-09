@@ -18,6 +18,20 @@ import { ComponentsManager } from './componentsManager';
 
 /**
  * The main bot class.
+ * @example
+ * ```js
+ * import { Bot, GatewayIntentBits, util } from '@aroleaf/djs-bot';
+ * 
+ * const bot = new Bot({
+ *   intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages ],
+ *   commands: await util.loader('commands'),
+ *   events: await util.loader('events'),
+ *   owner: '123456789012345678',
+ *   prefix: '!',
+ * });
+ * 
+ * bot.login('token');
+ * ```
  */
 export class Bot extends Client {
   /** The command manager for this bot. */

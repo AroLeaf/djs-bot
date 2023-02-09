@@ -22,7 +22,9 @@ import { objectOmit } from '../util.js';
 
 
 /**
- * @private
+ * Creates an object of options from an array of `CommandInteractionOption`s
+ * @param options - the options to parse
+ * @returns an object of options
  */
 export function parseOptions(options: ReadonlyArray<CommandInteractionOption<'cached'>>): any {
   if (!options?.length) return {};
@@ -49,6 +51,15 @@ export function parseOptions(options: ReadonlyArray<CommandInteractionOption<'ca
 
 /**
  * A class for handling slash commands.
+ * @example
+ * A simple hello world command.
+ * ```js
+ * new SlashCommand({
+ *   name: 'test',
+ *   description: 'A test command',
+ * }, async interaction => {
+ *   await interaction.reply('Hello world!');
+ * });
  */
 export class SlashCommand extends Command {
   /** The data for this command. */
