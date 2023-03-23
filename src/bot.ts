@@ -1,115 +1,111 @@
-import {
-  ApplicationCommand,
-  ApplicationCommandData,
-  ApplicationCommandType,
-  Client,
-  Collection,
-  Events,
-  GatewayIntentBits,
-  GuildResolvable,
-} from 'discord.js';
-import * as defaultEvents from './events/default/index';
+import { ApplicationCommand, ApplicationCommandData, ApplicationCommandType, Client, Collection, Events, Message, } from 'discord.js';
+import XRegExp from 'xregexp';
+import { SlashCommand } from './commands';
+import CommandManager from './commands/commandManager';
+import MessageCommand from './commands/messageCommand';
+import UserCommand from './commands/userCommand';
+import ComponentsManager from './componentsManager';
+import { DefaultEvents, Event } from './events';
+import EventManager from './events/eventManager';
+import { EventKey } from './types';
+import { BotHookObject, BotOptions, CommandRegisterOptions, FunctionPrefix, Prefix } from './types/bot';
 
-import { CommandManager } from './commands';
-import { EventManager } from './events';
-import { BotOptions, CommandRegisterOptions } from './types';
-import { ComponentsManager } from './componentsManager';
-
-
-/**
- * The main bot class.
- * @example
- * ```js
- * import { Bot, GatewayIntentBits, util } from '@aroleaf/djs-bot';
- * 
- * const bot = new Bot({
- *   intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages ],
- *   commands: await util.loader('commands'),
- *   events: await util.loader('events'),
- *   owner: '123456789012345678',
- *   prefix: '!',
- * });
- * 
- * bot.login('token');
- * ```
- */
-export class Bot extends Client {
-  /** The command manager for this bot. */
-  commands: CommandManager;
-  /** The event manager for this bot. */
-  events: EventManager;
-  /** The components manager for this bot. */
-  components: ComponentsManager;
-  /** The owner(s) of this bot. */
+export default class Bot extends Client {
   owners: string[];
+  prefix?: Prefix;
+  hooks?: BotHookObject;
+  commands: CommandManager;
+  events: EventManager;
+  components: ComponentsManager;
 
-  /**
-   * Creates a new bot.
-   * @param options - the options for this bot
-   */
   constructor(options: BotOptions) {
-    options.intents ||= [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages ];
     super(options);
-    
-    this.owners = (options.owners || [options.owner] || []) as string[];
-    this.prefix = options.prefix;
-    
+    this.owners = options.owners || (options.owner ? [options.owner] : []);
+    this.prefix = options.prefix ? Bot.parsePrefix(options.prefix) : undefined;
+    this.hooks = options.hooks;
     this.commands = new CommandManager(this, options.commands);
-    this.events = new EventManager(this, (options.events || []).concat(Object
-      .entries(defaultEvents)
-      .filter(([k]) => options.defaultEvents?.[k] ?? true)
-      .map(([,e]) => e)
-    ));
+    this.events = new EventManager(this, options.events?.concat(options.defaultEvents === false ? [] : <Event<EventKey>[]>DefaultEvents));
     this.components = new ComponentsManager(this);
-    
-    if (options.register) this.on(Events.ClientReady, () => this.register(options.register!));
+
+    if (options.register) this.on(Events.ClientReady, () => this.registerCommmands(options.register));
   }
 
-
-  /**
-   * Registers all slash commands of this bot.
-   * @param options - options for registering commands
-   * @returns a promise that resolves when all commands have been registered
-   */
-  async register(options: CommandRegisterOptions = {}) {
-    options.guilds ??= [];
+  async registerCommmands(options: CommandRegisterOptions = {}) {
     options.global ??= false;
+    options.guilds ??= [];
+    
+    const toData = (command: { data: ApplicationCommandData }) => command.data;
+    const all = new Collection<string, MessageCommand | UserCommand | SlashCommand>().concat(
+      this.commands.slashCommands,
+      this.commands.messageCommands,
+      this.commands.userCommands
+    );
+    const commandData = {
+      [ApplicationCommandType.ChatInput]: this.commands.slashCommands.mapValues(toData),
+      [ApplicationCommandType.Message]: this.commands.messageCommands.mapValues(toData),
+      [ApplicationCommandType.User]: this.commands.userCommands.mapValues(toData),
+    }
 
-    const commands = [
-      ...this.commands.slashCommands.values(),
-      ...this.commands.userCommands.values(),
-      ...this.commands.messageCommands.values(),
-    ].map(cmd => cmd.data);
-
-    const isDifferent = (commands: Collection<string, ApplicationCommand<{ guild: GuildResolvable }>>) => {
+    const isDifferent = (compare: Collection<string, ApplicationCommand>) => {
       for (const type of [
         ApplicationCommandType.ChatInput,
-        ApplicationCommandType.User,
         ApplicationCommandType.Message,
+        ApplicationCommandType.User,
       ]) {
-        const local = ({
-          [ApplicationCommandType.ChatInput]: this.commands.slashCommands,
-          [ApplicationCommandType.User]: this.commands.userCommands,
-          [ApplicationCommandType.Message]: this.commands.messageCommands,
-        })[type];
-        const discord = commands.filter(cmd => cmd.type === type);
-
-        if (local.size !== discord.size || commands.some(cmd => !cmd.equals(<ApplicationCommandData>local.get(cmd.name)?.data || {}))) return true;
+        const filtered = compare.filter((command) => command.type === type);
+        if (filtered.size !== commandData[type].size || filtered.some((command) => !command.equals(commandData[type].get(command.name) || <ApplicationCommandData>{}))) return true;
       }
-
       return false;
     }
 
-    if (options.global) {
-      if (isDifferent(await this.application!.commands.fetch())) await this.application!.commands.set(commands);
-      for (const id of options.guilds) {
-        this.guilds.resolve(id)?.commands.set([]);
+    const guildCommands = new Collection<string, ApplicationCommandData[]>(options.guilds.map((guild) => [guild, []]));
+    const globalCommands = [] as ApplicationCommandData[];
+    for (const [,command] of all) {
+      if (command.guilds) {
+        for (const guild of command.guilds) {
+          guildCommands.ensure(guild, () => []).push(command.data);
+        }
+        continue;
       }
-      return;
-    } else for (const id of options.guilds) {
-      const guild = this.guilds.resolve(id);
-      if (!guild) continue;
-      if (isDifferent(await guild.commands.fetch())) await guild.commands.set(commands);
+
+      if (options.global) {
+        globalCommands.push(command.data);
+        continue;
+      } else {
+        for (const guild of options.guilds) {
+          guildCommands.ensure(guild, () => []).push(command.data);
+        }
+      }
+    }
+
+    if (options.global && isDifferent(await this.application!.commands.fetch())) {
+      await this.application!.commands.set(globalCommands);
+    }
+
+    for (const [guildId, commands] of guildCommands) {
+      const guild = this.guilds.resolve(guildId);
+      if (guild && isDifferent(await guild.commands.fetch())) {
+        await guild.commands.set(commands);
+      }
+    }
+  }
+
+
+  static parsePrefix(prefix: string | RegExp | FunctionPrefix): Prefix {
+    return {
+      source: prefix,
+      get: (<{ [key: string]: FunctionPrefix }>{
+        'string': function (message: Message) {
+          const regex = XRegExp(`^(?:${XRegExp.escape(prefix as string)}|<@!?${message.client.user.id}>)`);
+          return regex.exec(message.content)?.[0];
+        },
+        'object': function (message: Message) {
+          return (prefix as RegExp).exec(message.content)?.[0];
+        },
+        'function': function (message: Message) {
+          return (prefix as FunctionPrefix)(message);
+        }
+      })[typeof prefix],
     }
   }
 }

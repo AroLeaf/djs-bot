@@ -43,7 +43,7 @@
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>allow_<wbr/>list</span><a href="#allow_list" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
 <div class="tsd-signature">allow_<wbr/>list<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 <div class="tsd-comment tsd-typography"><p>Substrings which will be exempt from triggering the preset trigger type (Maximum of 1000)</p>
-<p>A allowed-word can be a phrase which contains multiple words. Wildcard symbols can be used to customize how each string will be matched. Each keyword must be 30 characters or less
+<p>A allowed-word can be a phrase which contains multiple words. Wildcard symbols can be used to customize how each string will be matched. Each keyword must be 60 characters or less
 See <a href="https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-matching-strategies">keyword matching strategies</a></p>
 <p>Associated trigger type: <a href="../enums/AutoModerationRuleTriggerType.html#KeywordPreset">KeywordPreset</a></p>
 </div><aside class="tsd-sources">
@@ -53,7 +53,7 @@ See <a href="https://discord.com/developers/docs/resources/auto-moderation#auto-
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>keyword_<wbr/>filter</span><a href="#keyword_filter" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">keyword_<wbr/>filter<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 <div class="tsd-comment tsd-typography"><p>Substrings which will be searched for in content (Maximum of 1000)</p>
-<p>A keyword can be a phrase which contains multiple words. Wildcard symbols can be used to customize how each string will be matched. Each keyword must be 30 characters or less
+<p>A keyword can be a phrase which contains multiple words. Wildcard symbols can be used to customize how each string will be matched. Each keyword must be 60 characters or less
 See <a href="https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-keyword-matching-strategies">keyword matching strategies</a></p>
 <p>Associated trigger type: <a href="../enums/AutoModerationRuleTriggerType.html#Keyword">Keyword</a></p>
 </div><aside class="tsd-sources">
@@ -79,7 +79,7 @@ See <a href="https://discord.com/developers/docs/resources/auto-moderation#auto-
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>regex_<wbr/>patterns</span><a href="#regex_patterns" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">regex_<wbr/>patterns<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 <div class="tsd-comment tsd-typography"><p>Regular expression patterns which will be matched against content (Maximum of 10)</p>
-<p>Only Rust flavored regex is currently supported (Maximum of 75 characters)</p>
+<p>Only Rust flavored regex is currently supported (Maximum of 260 characters)</p>
 <p>Associated trigger type: <a href="../enums/AutoModerationRuleTriggerType.html#Keyword">Keyword</a></p>
 </div><aside class="tsd-sources">
 <ul>
@@ -105,8 +105,7 @@ See <a href="https://discord.com/developers/docs/resources/auto-moderation#auto-
 <ul>
 <li><a href="../modules.html">DJS-<wbr/>Bot</a>
 <ul>
-<li class="tsd-kind-namespace"><a href="../modules/logging.html">logging</a></li>
-<li class="tsd-kind-namespace"><a href="../modules/util.html">util</a></li></ul></li>
+<li class="tsd-kind-namespace"><a href="../modules/Hooks.html">Hooks</a></li></ul></li>
 <li class="tsd-kind-namespace tsd-is-external"><a href="../modules/ComponentAssertions.html">Component<wbr/>Assertions</a></li>
 <li class="tsd-kind-namespace tsd-is-external"><a href="../modules/ContextMenuCommandAssertions.html">Context<wbr/>Menu<wbr/>Command<wbr/>Assertions</a></li>
 <li class="tsd-kind-namespace tsd-is-external"><a href="../modules/EmbedAssertions.html">Embed<wbr/>Assertions</a></li>

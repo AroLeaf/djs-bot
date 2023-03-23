@@ -1,74 +1,43 @@
-import {
-  Message,
-  PermissionsBitField,
-  CommandInteraction,
-  GuildMember,
-} from 'discord.js';
+import { CommandOptions, CommandHooks, CommandContext, CommandHookArguments } from '../types/command';
 
-import {
-  CommandData,
-  CommandFlagsBitField,
-  CommandPermissions, 
-} from '../types';
-
-
-/**
- * @abstract
- */
-export class Command {
-  /** The name of this command. */
+export default abstract class Command {
   name: string;
-  /** The description of this command. */
-  description?: string;
-  /** Flags for this command. */
-  flags: CommandFlagsBitField;
-  /** The raw data for this command. */
-  data: CommandData;
-  /** Permissions required to run this command. */
-  perms: CommandPermissions;
+  hooks?: CommandHooks<CommandContext>;
 
-  constructor(data: CommandData) {
-    this.data = data;
-    this.name = data.name;
-    this.description = 'description' in data ? data.description: undefined;
-    this.flags = new CommandFlagsBitField(data.flags);
-    this.perms = {
-      self: new PermissionsBitField(data.permissions?.self),
-      user: new PermissionsBitField(data.permissions?.user),
-    };
+  constructor(options: CommandOptions) {
+    this.name = options.name;
+    this.hooks = options.hooks;
   }
 
-  /**
-   * Checks if the command may be run. If not, it will notify the user.
-   * @param request - an interaction or message
-   * @returns true if the command may be run, false otherwise
-   */
-  check(request: CommandInteraction<"cached"> | Message) {
-    const user = request instanceof Message ? request.author:  request.user;
-    function reject(reason: string) {
-      const data = {
-        content: reason,
-        ephemeral: true,
-        allowedMentions: { repliedUser: false, parse: [] },
-      };
-      request instanceof CommandInteraction<"cached"> && (request.replied || request.deferred)
-        ? request.replied ? request.followUp(data) : request.editReply(data)
-        : request.reply(data);
+  async before<C extends CommandContext>(...args: CommandHookArguments<C>['before']) {
+    if (!this.hooks?.before) return true;
+    try {
+      for (const hook of this.hooks.before) {
+        const result = await hook(...args);
+        if (result === false) return false;
+      }
+      return true;
+    } catch(error) {
+      await this.error(...args, error as Error);
       return false;
     }
-    
-    if (this.flags.has(CommandFlagsBitField.Flags.GUILD_ONLY) && !request.inGuild()) return reject('This command can only be used in guilds.');
-    if (this.flags.has(CommandFlagsBitField.Flags.OWNER_ONLY) && !request.client.owners?.includes(user.id)) return reject('This command can only be used by the bot owner(s)');
+  }
 
-    if (request.inGuild()) {
-      const permissions = (member?: GuildMember | null) => request.channel
-        ? member?.permissionsIn(request.channel)
-        : member?.permissions;
-
-      if (this.perms.user.bitfield && !permissions(request.member)?.has(this.perms.user)) return reject(`You are missing permissions:\n${permissions(request.member)?.missing(this.perms.user).join('\n')}`);
-      if (this.perms.self.bitfield && !permissions(request.guild.members.me)?.has(this.perms.self)) return reject(`I am missing permissions:\n${permissions(request.guild.members.me)?.missing(this.perms.self).join('\n')}`);
+  async after<C extends CommandContext>(...args: CommandHookArguments<C>['after']) {
+    if (!this.hooks?.after) return;
+    try {
+      for (const hook of this.hooks.after) {
+        await hook(...args);
+      }
+    } catch(error) {
+      await this.error(...args, error as Error);
     }
-    
-    return true;
+  }
+
+  async error<C extends CommandContext>(...args: CommandHookArguments<C>['error']) {
+    if (!this.hooks?.error) return;
+    for (const hook of this.hooks.error) {
+      await hook(...args);
+    }
   }
 }

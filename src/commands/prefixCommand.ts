@@ -1,189 +1,151 @@
+import * as Arguments from '@aroleaf/arguments';
 import { Message } from 'discord.js';
+import XRegExp from 'xregexp';
+import { CommandOptions, PrefixCommandArgumentOptions, PrefixCommandArgumentType, PrefixCommandContext, PrefixCommandHandler, PrefixCommandOptionOptions, PrefixCommandOptions } from '../types';
+import Command from './command';
 
-import {
-  BaseCommandData,
-  Prefix,
-  PrefixCommandArgumentData,
-  PrefixCommandArguments,
-  PrefixCommandData,
-  PrefixCommandOptionData,
-  PrefixCommandOptionType,
-  PrefixCommandOptionTypeString,
-  ResolvedPrefixCommandOptionType,
-} from '../types.js';
+export default class PrefixCommand extends Command {
+  options?: PrefixCommandOptionOptions[];
+  args?: PrefixCommandArgumentOptions[];
+  handler: PrefixCommandHandler;
 
-import { Command } from './command.js';
-import * as log from '../logging.js';
-import * as Arguments from '../arguments.js';
-
-/**
- * Creates a prefix object from a string.
- * @param prefix - the string to use as a prefix
- * @param mention - whether or not mentioning the bot should count as a prefix
- * @returns a prefix object
- */
-export function stringPrefix(prefix: string, mention = true): Prefix {
-  return {
-    get: () => prefix,
-    test: (msg: Message) => msg.content.startsWith(prefix),
-    mention,
-  }
-}
- 
-/**
- * Creates a prefix object from a regular expression.
- * @param prefix - the regular expression to use as a prefix
- * @param mention - whether or not mentioning the bot should count as a prefix
- * @returns a prefix object
- */
-export function regexPrefix(prefix: RegExp, mention = true): Prefix {
-  return {
-    get: () => prefix.source,
-    test: (msg: Message) => prefix.test(msg.content),
-    mention,
-  }
-}
-
-/**
- * A command that can be executed via a prefixed message.
- * @example
- * A simple ping command.
- * ```js
- * new PrefixCommand({
- *   name: 'ping',
- * }, (message) => {
- *   return message.reply('pong');
- * });
- * ```
- */
-export class PrefixCommand extends Command {
-  /** The function to run when this command is executed. */
-  run: (message: Message, args: PrefixCommandArguments<ResolvedPrefixCommandOptionType>) => any;
-  /** Named options for this command. */
-  options?: PrefixCommandOptionData[];
-  /** Positional arguments for this command. */
-  args?: PrefixCommandArgumentData[];
-  /** Aliases for this command. */
-  aliases: string[];
-
-  /**
-   * Creates a new PrefixCommand.
-   * @param data - the data for this command
-   * @param run - the function to run when this command is executed
-   */
-  constructor(data: BaseCommandData<PrefixCommandData>, run: (message: Message, args: PrefixCommandArguments<ResolvedPrefixCommandOptionType>) => any) {
-    super(data);
-    this.run = run;
-    this.args = data.args;
-    this.options = data.options;
-    this.aliases = data.aliases ?? [];
+  constructor(options: PrefixCommandOptions, handler: PrefixCommandHandler) {
+    super(options as CommandOptions);
+    this.options = options.options;
+    this.args = options.args;
+    this.handler = handler;
   }
 
-  /**
-   * Executes this command, notifying the user if an error occurs.
-   * @param message - the message to execute this command on
-   * @param args - the arguments to pass to this command
-   */
-  async execute(message: Message, args: string): Promise<any> {
-    if (!super.check(message)) return;
+  async run(message: Message, args: string) {
+    const parserArgs = (args: PrefixCommandArgumentOptions[], option?: PrefixCommandOptionOptions): Arguments.ArgumentParserArgumentData<any>[] => args.map(arg => ({
+      name: arg.name,
+      required: arg.required,
+      transform: arg.transform && <Arguments.TransformFunction<any>>((value) => {
+        const context = {
+          message,
+          argument: arg,
+          option,
+        }
+        return arg.transform!(value, context);
+      }),
+    }));
 
-    let parsed: PrefixCommandArguments<ResolvedPrefixCommandOptionType> | void = args.split(/ +/);
+    const parserOptions = (options: PrefixCommandOptionOptions[]): Arguments.ArgumentParserOptionData<any>[] => options.map(option => ({
+      name: option.name,
+      short: option.short,
+      required: option.required,
+      args: option.args && parserArgs(option.args, option),
+      transform: option.transform && <Arguments.TransformFunction<any>>((value, a, b) => {
+        const argument = a !== null ? option.args?.find(arg => arg.name === a.name) : undefined;
+        const context = {
+          message,
+          argument: b !== null ? argument : undefined,
+          option: b !== null ? option : argument,
+        }
+        return option.transform!(value, context);
+      }),
+    }));
 
-    const transformer = async (input: string, name: string, option?: string): Promise<ResolvedPrefixCommandOptionType> => {
-      const resolveType = (type: PrefixCommandOptionTypeString | PrefixCommandOptionType) => typeof type === 'string' ? PrefixCommandOptionType[type] : type;
+    const transformer = <Arguments.TransformFunction<any>>(async (value, a, b) => {
+      const option = this.options?.find(o => o.name === (b !== null ? b : a).name);
+      const arg = a !== null ? (option || this).args?.find(arg => arg.name === a.name) : undefined;
       
-      const arg = option
-        ? this.options?.find(opt => opt.name === option)?.args?.find(arg => arg.name === name)!
-        : this.args?.find(arg => arg.name === name)!;
+      if (!arg) return value;
+      if (!value) throw new Error(`Empty argument ${arg.name}`);
 
-      if (!input) throw new Error(`Empty argument ${arg.name}`);
-      switch (resolveType(arg.type)) {
-        case PrefixCommandOptionType.STRING: {
-          return input;
+      const getId = (prefix: string) => {
+        const regex = XRegExp(`^(?:(\\d+)|(<${prefix}\\d+>))$`);
+        const match = value.match(regex);
+        return match?.[1] || match?.[2];
+      }
+
+      switch (arg.type) {
+        case PrefixCommandArgumentType.String: {
+          return value;
         }
   
-        case PrefixCommandOptionType.NUMBER: {
-          const number = Number(input);
-          if (!Number.isFinite(number)) throw new Error(`\`${input}\` is not a finite number.`);
+        case PrefixCommandArgumentType.Number: {
+          const number = Number(value);
+          if (!Number.isFinite(number)) throw new Error(`\`${value}\` is not a finite number.`);
           return number;
         }
   
-        case PrefixCommandOptionType.INTEGER: {
-          const int = parseInt(input);
-          if (!Number.isSafeInteger(int)) throw new Error(`\`${input}\` is not a valid integer.`);
+        case PrefixCommandArgumentType.Integer: {
+          const int = parseInt(value);
+          if (!Number.isSafeInteger(int)) throw new Error(`\`${value}\` is not a valid integer.`);
           return int;
         }
   
-        case PrefixCommandOptionType.USER: {
-          const match = input.match(/^(\d+)|<@!?(\d+)>$/);
-          const id = match?.[1] || match?.[2];
+        case PrefixCommandArgumentType.User: {
+          const id = getId('@!?');
           const user = id && await message.client.users.fetch(id).catch(()=>{});
-          if (!user) throw new Error(`Failed to find user \`${id || input}\``);
+          if (!user) throw new Error(`Failed to find user \`${id || value}\``);
           return user;
         }
   
-        case PrefixCommandOptionType.MEMBER: {
-          const match = input.match(/^(\d+)|<@!?(\d+)>$/);
-          const id = match?.[1] || match?.[2];
+        case PrefixCommandArgumentType.Member: {
+          const id = getId('@!?');
           const member = id && await message.guild?.members.fetch(id).catch(()=>{});
-          if (!member) throw new Error(`Failed to find member \`${id || input}\``);
+          if (!member) throw new Error(`Failed to find member \`${id || value}\``);
           return member;
         }
   
-        case PrefixCommandOptionType.USERLIKE: {
-          const match = input.match(/^(\d+)|<@!?(\d+)>$/);
-          const id = match?.[1] || match?.[2];
+        case PrefixCommandArgumentType.Userlike: {
+          const id = getId('@!?');
           const userlike = id && (
             await message.guild?.members.fetch(id).catch(()=>{}) ||
             await message.client.users.fetch(id).catch(()=>{})
           );
-          if (!userlike) throw new Error(`Failed to find member or user \`${id || input}\``);
+          if (!userlike) throw new Error(`Failed to find member or user \`${id || value}\``);
           return userlike;
         }
   
-        case PrefixCommandOptionType.ROLE: {
-          const match = input.match(/^(\d+)|<@&(\d+)>$/);
-          const id = match?.[1] || match?.[2];
+        case PrefixCommandArgumentType.Role: {
+          const id = getId('@&');
           const role = id && await message.guild?.roles.fetch(id).catch(()=>{});
-          if (!role) throw new Error(`Failed to find role \`${id || input}\``);
+          if (!role) throw new Error(`Failed to find role \`${id || value}\``);
           return role;
         }
   
-        case PrefixCommandOptionType.CHANNEL: {
-          const match = input.match(/^(\d+)|<#(\d+)>$/);
-          const id = match?.[1] || match?.[2];
+        case PrefixCommandArgumentType.Channel: {
+          const id = getId('#');
           const channel = id && await message.guild?.channels.fetch(id).catch(()=>{});
-          if (!channel) throw new Error(`Failed to find channel \`${id || input}\``);
+          if (!channel) throw new Error(`Failed to find channel \`${id || value}\``);
           return channel;
         }
         
-        case PrefixCommandOptionType.MESSAGE: {
-          const msg = await message.channel.messages.fetch(input).catch(()=>{});
-          if (!msg) throw new Error(`Failed to find message \`${input}\``);
+        case PrefixCommandArgumentType.Message: {
+          const msg = await message.channel.messages.fetch(value).catch(()=>{});
+          if (!msg) throw new Error(`Failed to find message \`${value}\``);
           return msg;
         }
+
+        default: {
+          throw new Error(`Unknown argument type ${arg.type}`);
+        }
       }
+    });
+
+    const parsed = Object.assign((this.options || this.args) ? Arguments.parse(args, {
+      args: this.args && parserArgs(this.args),
+      options: this.options && parserOptions(this.options),
+      transform: transformer,
+    }) : args.split(/ +/), { raw: args });
+
+    const context: PrefixCommandContext = {
+      command: this,
+      message,
     }
 
-    if (this.options || this.args) {      
-      parsed = await Arguments.parse<ResolvedPrefixCommandOptionType>(args, {
-        args: this.args,
-        options: this.options,
-        transformer,
-      }).catch(async (e: Error) => { await message.reply({
-        content: e.message,
-        allowedMentions: { repliedUser: false, parse: [] },
-      }) });
-      if (!parsed) return;
+    const ok = await this.before(context, parsed);
+    if (!ok) return;
+
+    try {  
+      await this.handler(context, parsed);
+    } catch (error) {
+      await this.error(context, parsed, error as Error);
     }
 
-    try {
-      if (!await this.check(message)) return;
-      await this.run(message, parsed);
-      return;
-    } catch (err) {
-      log.error(err);
-      return message.reply('Something went wrong executing the command');
-    }
+    await this.after(context, parsed);
   }
 }

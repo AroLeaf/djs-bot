@@ -1,159 +1,117 @@
-import {
-  ApplicationCommandOptionData,
-  ApplicationCommandOptionType,
-  AutocompleteInteraction,
-  ChatInputApplicationCommandData,
-  ChatInputCommandInteraction,
-  Collection,
-  CommandInteractionOption,
-} from 'discord.js';
+import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandSubCommandData, ApplicationCommandSubGroupData, AutocompleteInteraction, ChatInputApplicationCommandData, ChatInputCommandInteraction, Collection, CommandInteractionOption } from 'discord.js';
+import { CommandOptions } from '../types';
+import { AutoCompleteContext, AutocompleteHandler, SlashCommandContext, SlashCommandHandler, SlashCommandOptions, SubCommandGroupOptions, SubCommandOptionOptions } from '../types/slashCommand';
+import { objectOmit } from '../util';
+import Command from './command';
+import SubCommand from './subCommand';
 
-import {
-  autocompleteHandler,
-  BaseCommandData,
-  SlashCommandData,
-  StandaloneSubcommandData,
-} from '../types.js';
-
-import * as log from '../logging.js';
-import { Command } from './command.js';
-import { Subcommand } from './subCommand.js';
-import { objectOmit } from '../util.js';
-
-
-/**
- * Creates an object of options from an array of `CommandInteractionOption`s
- * @param options - the options to parse
- * @returns an object of options
- */
-export function parseOptions(options: ReadonlyArray<CommandInteractionOption<'cached'>>): any {
-  if (!options?.length) return {};
-  if ([
-    ApplicationCommandOptionType.SubcommandGroup,
-    ApplicationCommandOptionType.Subcommand,
-  ].includes(options[0].type)) return parseOptions(options[0].options!);
-  return Object.fromEntries(options.map(option => {
-    switch(option.type) {
-      case ApplicationCommandOptionType.String:
-      case ApplicationCommandOptionType.Number:
-      case ApplicationCommandOptionType.Integer:
-      case ApplicationCommandOptionType.Boolean:      return [option.name, option.value!];
-      case ApplicationCommandOptionType.User:         return [option.name, Object.assign(option.user!, { member: option.member })];
-      case ApplicationCommandOptionType.Channel:      return [option.name, option.channel!];
-      case ApplicationCommandOptionType.Role:         return [option.name, option.role!];
-      case ApplicationCommandOptionType.Mentionable:  return [option.name, option.role || Object.assign(option.user!, { member: option.member })];
-      case ApplicationCommandOptionType.Attachment:   return [option.name, option.attachment!];
-      default: throw new Error();
-    }
-  }));
-}
-
-
-/**
- * A class for handling slash commands.
- * @example
- * A simple hello world command.
- * ```js
- * new SlashCommand({
- *   name: 'test',
- *   description: 'A test command',
- * }, async interaction => {
- *   await interaction.reply('Hello world!');
- * });
- */
-export class SlashCommand extends Command {
-  /** The data for this command. */
+export default class SlashCommand extends Command {
   data: ChatInputApplicationCommandData;
-  /** The guilds this command should be limited to. */
-  guilds: string[];
-  /** The subcommands for this command. */
-  subcommands = new Collection<string, Subcommand>();
-  /** The autocomplete handlers for this command. */
-  autocompleteHandlers = new Collection<string, autocompleteHandler>();
-  /** The function to run when this command is executed. */
-  run: (interaction: ChatInputCommandInteraction, options?: any) => any;
+  guilds?: string[];
+  subcommands = new Collection<string, SubCommand>();
+  autocompleteHandlers = new Collection<string, AutocompleteHandler>();
+  handler: SlashCommandHandler;
 
-  /**
-   * Creates a new SlashCommand.
-   * @param data - the data for this command
-   * @param run - the function to run when this command is executed
-   */
-  constructor(data: BaseCommandData<SlashCommandData>, run: (interaction: ChatInputCommandInteraction, options: any) => any) {
-    super(data);
-    data.type ||= 1;
-    this.data = objectOmit(data, 'guilds', 'flags');
-    this.data.options = <ApplicationCommandOptionData[]>data.options?.map(o => objectOmit(o, 'onAutocomplete'));
-    this.guilds = data.guilds;
-    this.run = run;
-
-    for (const option of data.options || []) {
-      if (!option.autocomplete) continue;
-      if (!option.onAutocomplete) {
-        log.warn(`option '${option.name}' on command '${data.name}' has autocomplete enabled, but no autocomplete handler`);
-        continue;
-      }
-      this.autocompleteHandlers.set(option.name, option.onAutocomplete);
-    }
+  constructor(options: SlashCommandOptions, handler: SlashCommandHandler) {
+    super(options as CommandOptions);
+    this.guilds = options.guilds;
+    [this.autocompleteHandlers, this.data] = SlashCommand.extractAutocompleteHandlers(options);
+    this.handler = handler;
   }
 
-
-  /**
-   * Creates a new subcommand for this command.
-   * @param data - the data for this subcommand
-   * @param run - the function to run when this subcommand is executed
-   * @returns the new subcommand
-   */
-  subcommand(data: BaseCommandData<StandaloneSubcommandData>, run: (interaction: ChatInputCommandInteraction, options?: any) => any) {
-    return new Subcommand(this, data, run);
-  }
-
-
-  /**
-   * Executes this command, or a subcommand of this command, notifiying the user if an error occurs.
-   * @param interaction - the interaction to execute this command on
-   */
-  async execute(interaction: ChatInputCommandInteraction<"cached">): Promise<any> {
-    const sub = interaction.options.getSubcommand(false);
-    if (sub) {
-      const group = interaction.options.getSubcommandGroup(false);
-      const label = group ? `${group}.${sub}` : sub;
-      const cmd = this.subcommands.get(label);
-      if (cmd) return cmd.execute(interaction);
+  async run(interaction: ChatInputCommandInteraction<'cached'>) {
+    const options = SlashCommand.parseOptions(interaction.options.data);
+    const context: SlashCommandContext = {
+      interaction,
+      command: this,
     }
+
+    const ok = await this.before(context, options);
+    if (!ok) return;
 
     try {
-      if (!await this.check(interaction)) return;
-      await this.run(interaction, parseOptions(interaction.options.data));
-    } catch (err) {
-      log.error(err);
-      const res = {
-        content: 'Something went wrong executing the command',
-        ephemeral: true,
-      };
-      interaction.deferred ? interaction.editReply(res) : interaction.replied ? interaction.followUp(res) : interaction.reply(res);
+      const subcommandName = interaction.options.getSubcommand(false);
+      const subcommandGroup = interaction.options.getSubcommandGroup(false);
+      const subcommand = subcommandName && this.subcommands.get(subcommandGroup ? `${subcommandGroup}.${subcommandName}` : subcommandName);
+      if (subcommand) await subcommand.run(interaction);
+      else await this.handler(context, options);
+    } catch(error) {
+      return this.error(context, options, error as Error);
     }
+
+    await this.after(context, options);
   }
 
-  /**
-   * Executes an autocomplete handler for this command, replying with no options if an error occurs.
-   * @param interaction - the autocomplete interaction to execute a handler for
-   */
   async autocomplete(interaction: AutocompleteInteraction<'cached'>) {
-    const sub = interaction.options.getSubcommand(false);
-    if (sub) {
-      const group = interaction.options.getSubcommandGroup(false);
-      const label = group ? `${group}.${sub}` : sub;
-      const cmd = this.subcommands.get(label);
-      if (cmd) return cmd.autocomplete(interaction);
+    const subCommandName = interaction.options.getSubcommand(false);
+    const subCommandGroup = interaction.options.getSubcommandGroup(false);
+    const subCommandLabel = subCommandGroup ? `${subCommandGroup}.${subCommandName}` : subCommandName;
+    if (subCommandLabel) {
+      const subCommand = this.subcommands.get(subCommandLabel);
+      return subCommand && subCommand.autocomplete(interaction);
     }
-
-    const callback = this.autocompleteHandlers.get(interaction.options.getFocused(true).name);
+    const focusedOption = interaction.options.getFocused(true);
+    const handlerLabel = subCommandLabel ? `${subCommandLabel}.${focusedOption.name}` : focusedOption.name;
+    const autocompleteHandler = this.autocompleteHandlers.get(handlerLabel);
+    if (!autocompleteHandler) return;
+    const context: AutoCompleteContext = {
+      interaction,
+      command: this,
+    }
     try {
-      if (!callback) throw new Error(`No autocomplete handler found for option ${interaction.options.getFocused(true).name}`);
-      await callback(interaction);
-    } catch (err) {
-      log.error(err);
-      interaction.responded || interaction.respond([]);
+      await autocompleteHandler(context, focusedOption);
+    } catch(error) {
+      return this.error(context, { [focusedOption.name]: focusedOption }, error as Error);
     }
+  }
+
+
+  static parseOptions(options: ReadonlyArray<CommandInteractionOption<'cached'>>): any {
+    if (!options?.length) return {};
+    if ([
+      ApplicationCommandOptionType.SubcommandGroup,
+      ApplicationCommandOptionType.Subcommand,
+    ].includes(options[0].type)) return this.parseOptions(options[0].options!);
+    return Object.fromEntries(options.map(option => {
+      switch(option.type) {
+        case ApplicationCommandOptionType.String:
+        case ApplicationCommandOptionType.Number:
+        case ApplicationCommandOptionType.Integer:
+        case ApplicationCommandOptionType.Boolean:      return [option.name, option.value!];
+        case ApplicationCommandOptionType.User:         return [option.name, Object.assign(option.user!, { member: option.member })];
+        case ApplicationCommandOptionType.Channel:      return [option.name, option.channel!];
+        case ApplicationCommandOptionType.Role:         return [option.name, option.role!];
+        case ApplicationCommandOptionType.Mentionable:  return [option.name, option.role || Object.assign(option.user!, { member: option.member })];
+        case ApplicationCommandOptionType.Attachment:   return [option.name, option.attachment!];
+        default: throw new Error('Uknown interaction option type!');
+      }
+    }));
+  }
+
+  static cleanData<
+    T extends ApplicationCommandData | ApplicationCommandSubCommandData | ApplicationCommandSubGroupData,
+    R extends ApplicationCommandData | ApplicationCommandSubCommandData | ApplicationCommandSubGroupData
+  >(options: T): R {
+    return objectOmit(options as any, 'hooks', 'guilds') as R;
+  }
+
+  static extractAutocompleteHandlers<T = any>(options: SlashCommandOptions | SubCommandGroupOptions | SubCommandOptionOptions, prefix = ''): [Collection<string, AutocompleteHandler>, T] {
+    let handlers = new Collection<string, AutocompleteHandler>();
+    const data = SlashCommand.cleanData(options);
+    if ('options' in options) {
+      options.options = options.options?.map(option => {
+        if ('onAutocomplete' in option && option.onAutocomplete) {
+          option.autocomplete = true;
+          handlers.set(prefix + option.name, option.onAutocomplete);
+        }
+        if ('options' in option) {
+          const [subHandlers, subData] = this.extractAutocompleteHandlers(option, prefix + option.name + '.');
+          handlers = handlers.concat(subHandlers);
+          return subData;
+        }
+        return option;
+      });
+    }
+    return [handlers, data as T];
   }
 }

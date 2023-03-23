@@ -15,18 +15,6 @@
 <li><a href="../modules.html">DJS-Bot</a></li>
 <li><a href="SlashCommand.html">SlashCommand</a></li></ul>
 <h1>Class SlashCommand</h1></div>
-<section class="tsd-panel tsd-comment">
-<div class="tsd-comment tsd-typography"><p>A class for handling slash commands.</p>
-
-<h3>Example</h3><p>A simple hello world command.</p>
-<p>```js
-new SlashCommand({
-  name: &#39;test&#39;,
-  description: &#39;A test command&#39;,
-}, async interaction =&gt; {
-  await interaction.reply(&#39;Hello world!&#39;);
-});</p>
-</div></section>
 <section class="tsd-panel tsd-hierarchy">
 <h4>Hierarchy</h4>
 <ul class="tsd-hierarchy">
@@ -34,7 +22,7 @@ new SlashCommand({
 <ul class="tsd-hierarchy">
 <li><span class="target">SlashCommand</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/slashCommand.ts#L64">src/commands/slashCommand.ts:64</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/slashCommand.ts#L8">src/commands/slashCommand.ts:8</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -48,235 +36,218 @@ new SlashCommand({
 <h3 class="tsd-index-heading">Properties</h3>
 <div class="tsd-index-list"><a href="SlashCommand.html#autocompleteHandlers" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF984D" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-1024-path"></rect><path d="M9.354 16V7.24H12.174C12.99 7.24 13.638 7.476 14.118 7.948C14.606 8.412 14.85 9.036 14.85 9.82C14.85 10.604 14.606 11.232 14.118 11.704C13.638 12.168 12.99 12.4 12.174 12.4H10.434V16H9.354ZM10.434 11.428H12.174C12.646 11.428 13.022 11.284 13.302 10.996C13.59 10.7 13.734 10.308 13.734 9.82C13.734 9.324 13.59 8.932 13.302 8.644C13.022 8.356 12.646 8.212 12.174 8.212H10.434V11.428Z" fill="var(--color-text)" id="icon-1024-text"></path></svg><span>autocomplete<wbr/>Handlers</span></a>
 <a href="SlashCommand.html#data" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>data</span></a>
-<a href="SlashCommand.html#description" class="tsd-index-link tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>description?</span></a>
-<a href="SlashCommand.html#flags" class="tsd-index-link tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>flags</span></a>
-<a href="SlashCommand.html#guilds" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>guilds</span></a>
+<a href="SlashCommand.html#guilds" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>guilds?</span></a>
+<a href="SlashCommand.html#handler" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>handler</span></a>
+<a href="SlashCommand.html#hooks" class="tsd-index-link tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>hooks?</span></a>
 <a href="SlashCommand.html#name" class="tsd-index-link tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>name</span></a>
-<a href="SlashCommand.html#perms" class="tsd-index-link tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>perms</span></a>
-<a href="SlashCommand.html#run" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>run</span></a>
 <a href="SlashCommand.html#subcommands" class="tsd-index-link tsd-kind-property tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg><span>subcommands</span></a>
 </div></section>
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading">Methods</h3>
-<div class="tsd-index-list"><a href="SlashCommand.html#autocomplete" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF4DB8" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-2048-path"></rect><path d="M9.162 16V7.24H10.578L11.514 10.072C11.602 10.328 11.674 10.584 11.73 10.84C11.794 11.088 11.842 11.28 11.874 11.416C11.906 11.28 11.954 11.088 12.018 10.84C12.082 10.584 12.154 10.324 12.234 10.06L13.122 7.24H14.538V16H13.482V12.82C13.482 12.468 13.49 12.068 13.506 11.62C13.53 11.172 13.558 10.716 13.59 10.252C13.622 9.78 13.654 9.332 13.686 8.908C13.726 8.476 13.762 8.1 13.794 7.78L12.366 12.16H11.334L9.894 7.78C9.934 8.092 9.97 8.456 10.002 8.872C10.042 9.28 10.078 9.716 10.11 10.18C10.142 10.636 10.166 11.092 10.182 11.548C10.206 12.004 10.218 12.428 10.218 12.82V16H9.162Z" fill="var(--color-text)" id="icon-2048-text"></path></svg><span>autocomplete</span></a>
-<a href="SlashCommand.html#check" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>check</span></a>
-<a href="SlashCommand.html#execute" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>execute</span></a>
-<a href="SlashCommand.html#subcommand" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>subcommand</span></a>
+<div class="tsd-index-list"><a href="SlashCommand.html#after" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF4DB8" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-2048-path"></rect><path d="M9.162 16V7.24H10.578L11.514 10.072C11.602 10.328 11.674 10.584 11.73 10.84C11.794 11.088 11.842 11.28 11.874 11.416C11.906 11.28 11.954 11.088 12.018 10.84C12.082 10.584 12.154 10.324 12.234 10.06L13.122 7.24H14.538V16H13.482V12.82C13.482 12.468 13.49 12.068 13.506 11.62C13.53 11.172 13.558 10.716 13.59 10.252C13.622 9.78 13.654 9.332 13.686 8.908C13.726 8.476 13.762 8.1 13.794 7.78L12.366 12.16H11.334L9.894 7.78C9.934 8.092 9.97 8.456 10.002 8.872C10.042 9.28 10.078 9.716 10.11 10.18C10.142 10.636 10.166 11.092 10.182 11.548C10.206 12.004 10.218 12.428 10.218 12.82V16H9.162Z" fill="var(--color-text)" id="icon-2048-text"></path></svg><span>after</span></a>
+<a href="SlashCommand.html#autocomplete" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>autocomplete</span></a>
+<a href="SlashCommand.html#before" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>before</span></a>
+<a href="SlashCommand.html#error" class="tsd-index-link tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>error</span></a>
+<a href="SlashCommand.html#run" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>run</span></a>
+<a href="SlashCommand.html#cleanData" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>clean<wbr/>Data</span></a>
+<a href="SlashCommand.html#extractAutocompleteHandlers" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>extract<wbr/>Autocomplete<wbr/>Handlers</span></a>
+<a href="SlashCommand.html#parseOptions" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>parse<wbr/>Options</span></a>
 </div></section></div></details></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Constructors</h2>
 <section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class"><a id="constructor" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="constructor.new_SlashCommand">new <wbr/>Slash<wbr/>Command<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><a href="../types/BaseCommandData.html" class="tsd-signature-type" data-tsd-kind="Type alias">BaseCommandData</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/SlashCommandData.html" class="tsd-signature-type" data-tsd-kind="Interface">SlashCommandData</a><span class="tsd-signature-symbol">&gt;</span>, run<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>interaction<span class="tsd-signature-symbol">: </span><a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/CacheType.html" class="tsd-signature-type" data-tsd-kind="Type alias">CacheType</a><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="SlashCommand.html" class="tsd-signature-type" data-tsd-kind="Class">SlashCommand</a><a href="#constructor.new_SlashCommand" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
-<li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Creates a new SlashCommand.</p>
-</div>
-<div class="tsd-parameters">
-<h4 class="tsd-parameters-title">Parameters</h4>
-<ul class="tsd-parameter-list">
-<li>
-<h5>data: <a href="../types/BaseCommandData.html" class="tsd-signature-type" data-tsd-kind="Type alias">BaseCommandData</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/SlashCommandData.html" class="tsd-signature-type" data-tsd-kind="Interface">SlashCommandData</a><span class="tsd-signature-symbol">&gt;</span></h5>
-<div class="tsd-comment tsd-typography"><p>the data for this command</p>
-</div></li>
-<li>
-<h5>run: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>interaction<span class="tsd-signature-symbol">: </span><a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/CacheType.html" class="tsd-signature-type" data-tsd-kind="Type alias">CacheType</a><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span></h5>
-<div class="tsd-comment tsd-typography"><p>the function to run when this command is executed</p>
-</div>
-<ul class="tsd-parameters">
-<li class="tsd-parameter-signature">
-<ul class="tsd-signatures tsd-kind-type-literal">
-<li class="tsd-signature"><span class="tsd-signature-symbol">(</span>interaction<span class="tsd-signature-symbol">: </span><a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/CacheType.html" class="tsd-signature-type" data-tsd-kind="Type alias">CacheType</a><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+<li class="tsd-signature tsd-anchor-link" id="constructor.new_SlashCommand">new <wbr/>Slash<wbr/>Command<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/SlashCommandOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SlashCommandOptions</a>, handler<span class="tsd-signature-symbol">: </span><a href="../types/SlashCommandHandler.html" class="tsd-signature-type" data-tsd-kind="Type alias">SlashCommandHandler</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="SlashCommand.html" class="tsd-signature-type" data-tsd-kind="Class">SlashCommand</a><a href="#constructor.new_SlashCommand" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>interaction: <a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/CacheType.html" class="tsd-signature-type" data-tsd-kind="Type alias">CacheType</a><span class="tsd-signature-symbol">&gt;</span></h5></li>
+<h5>options: <a href="../interfaces/SlashCommandOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SlashCommandOptions</a></h5></li>
 <li>
-<h5>options: <span class="tsd-signature-type">any</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4></li></ul></li></ul></li></ul></div>
+<h5>handler: <a href="../types/SlashCommandHandler.html" class="tsd-signature-type" data-tsd-kind="Type alias">SlashCommandHandler</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="SlashCommand.html" class="tsd-signature-type" data-tsd-kind="Class">SlashCommand</a></h4><aside class="tsd-sources">
 <p>Overrides <a href="Command.html">Command</a>.<a href="Command.html#constructor">constructor</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/slashCommand.ts#L81">src/commands/slashCommand.ts:81</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/slashCommand.ts#L15">src/commands/slashCommand.ts:15</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="autocompleteHandlers" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>autocomplete<wbr/>Handlers</span><a href="#autocompleteHandlers" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">autocomplete<wbr/>Handlers<span class="tsd-signature-symbol">:</span> <a href="Collection.html" class="tsd-signature-type" data-tsd-kind="Class">Collection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../types/autocompleteHandler.html" class="tsd-signature-type" data-tsd-kind="Type alias">autocompleteHandler</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>The autocomplete handlers for this command.</p>
-</div><aside class="tsd-sources">
+<div class="tsd-signature">autocomplete<wbr/>Handlers<span class="tsd-signature-symbol">:</span> <a href="Collection.html" class="tsd-signature-type" data-tsd-kind="Class">Collection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../types/AutocompleteHandler.html" class="tsd-signature-type" data-tsd-kind="Type alias">AutocompleteHandler</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/slashCommand.ts#L72">src/commands/slashCommand.ts:72</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/slashCommand.ts#L12">src/commands/slashCommand.ts:12</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="data" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>data</span><a href="#data" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">data<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ChatInputApplicationCommandData.html" class="tsd-signature-type" data-tsd-kind="Interface">ChatInputApplicationCommandData</a></div>
-<div class="tsd-comment tsd-typography"><p>The data for this command.</p>
-</div><aside class="tsd-sources">
-<p>Overrides <a href="Command.html">Command</a>.<a href="Command.html#data">data</a></p>
+<div class="tsd-signature">data<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ChatInputApplicationCommandData.html" class="tsd-signature-type" data-tsd-kind="Interface">ChatInputApplicationCommandData</a></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/slashCommand.ts#L66">src/commands/slashCommand.ts:66</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="description" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>description</span><a href="#description" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">description<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>The description of this command.</p>
-</div><aside class="tsd-sources">
-<p>Inherited from <a href="Command.html">Command</a>.<a href="Command.html#description">description</a></p>
-<ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/command.ts#L22">src/commands/command.ts:22</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="flags" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>flags</span><a href="#flags" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">flags<span class="tsd-signature-symbol">:</span> <a href="CommandFlagsBitField.html" class="tsd-signature-type" data-tsd-kind="Class">CommandFlagsBitField</a></div>
-<div class="tsd-comment tsd-typography"><p>Flags for this command.</p>
-</div><aside class="tsd-sources">
-<p>Inherited from <a href="Command.html">Command</a>.<a href="Command.html#flags">flags</a></p>
-<ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/command.ts#L24">src/commands/command.ts:24</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/slashCommand.ts#L9">src/commands/slashCommand.ts:9</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="guilds" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>guilds</span><a href="#guilds" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">guilds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
-<div class="tsd-comment tsd-typography"><p>The guilds this command should be limited to.</p>
-</div><aside class="tsd-sources">
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>guilds</span><a href="#guilds" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">guilds<span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/slashCommand.ts#L68">src/commands/slashCommand.ts:68</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/slashCommand.ts#L10">src/commands/slashCommand.ts:10</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="handler" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>handler</span><a href="#handler" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">handler<span class="tsd-signature-symbol">:</span> <a href="../types/SlashCommandHandler.html" class="tsd-signature-type" data-tsd-kind="Type alias">SlashCommandHandler</a></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/slashCommand.ts#L13">src/commands/slashCommand.ts:13</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="hooks" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>hooks</span><a href="#hooks" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">hooks<span class="tsd-signature-symbol">?:</span> <a href="../types/CommandHooks.html" class="tsd-signature-type" data-tsd-kind="Type alias">CommandHooks</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CommandContext.html" class="tsd-signature-type" data-tsd-kind="Interface">CommandContext</a><span class="tsd-signature-symbol">&gt;</span></div><aside class="tsd-sources">
+<p>Inherited from <a href="Command.html">Command</a>.<a href="Command.html#hooks">hooks</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/command.ts#L5">src/commands/command.ts:5</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="name" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-<div class="tsd-comment tsd-typography"><p>The name of this command.</p>
-</div><aside class="tsd-sources">
+<div class="tsd-signature">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
 <p>Inherited from <a href="Command.html">Command</a>.<a href="Command.html#name">name</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/command.ts#L20">src/commands/command.ts:20</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="perms" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>perms</span><a href="#perms" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">perms<span class="tsd-signature-symbol">:</span> <a href="../interfaces/CommandPermissions.html" class="tsd-signature-type" data-tsd-kind="Interface">CommandPermissions</a></div>
-<div class="tsd-comment tsd-typography"><p>Permissions required to run this command.</p>
-</div><aside class="tsd-sources">
-<p>Inherited from <a href="Command.html">Command</a>.<a href="Command.html#perms">perms</a></p>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/command.ts#L4">src/commands/command.ts:4</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="subcommands" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>subcommands</span><a href="#subcommands" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<div class="tsd-signature">subcommands<span class="tsd-signature-symbol">:</span> <a href="Collection.html" class="tsd-signature-type" data-tsd-kind="Class">Collection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">default</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/command.ts#L28">src/commands/command.ts:28</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="run" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>run</span><a href="#run" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">run<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>interaction<span class="tsd-signature-symbol">: </span><a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/CacheType.html" class="tsd-signature-type" data-tsd-kind="Type alias">CacheType</a><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span></div>
-<div class="tsd-type-declaration">
-<h4>Type declaration</h4>
-<ul class="tsd-parameters">
-<li class="tsd-parameter-signature">
-<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-<li class="tsd-signature" id="run.__type.__type-1"><span class="tsd-signature-symbol">(</span>interaction<span class="tsd-signature-symbol">: </span><a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/CacheType.html" class="tsd-signature-type" data-tsd-kind="Type alias">CacheType</a><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/slashCommand.ts#L11">src/commands/slashCommand.ts:11</a></li></ul></aside></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Methods</h2>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="after" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>after</span><a href="#after" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature tsd-anchor-link" id="after.after-1">after<span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type" data-tsd-kind="Type parameter">C</span><span class="tsd-signature-symbol">, </span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="tsd-signature-type external" target="_blank">Promise</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#after.after-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>The function to run when this command is executed.</p>
-</div>
+<section class="tsd-panel tsd-type-parameters">
+<h4>Type Parameters</h4>
+<ul class="tsd-type-parameters">
+<li>
+<h4>C<span class="tsd-signature-symbol"> extends </span><a href="../interfaces/CommandContext.html" class="tsd-signature-type" data-tsd-kind="Interface">CommandContext</a></h4></li></ul></section>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>interaction: <a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/CacheType.html" class="tsd-signature-type" data-tsd-kind="Type alias">CacheType</a><span class="tsd-signature-symbol">&gt;</span></h5></li>
-<li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> options: <span class="tsd-signature-type">any</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
+<h5><code class="tsd-tag ts-flagRest">Rest</code> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-symbol">[</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type" data-tsd-kind="Type parameter">C</span><span class="tsd-signature-symbol">, </span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">]</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="tsd-signature-type external" target="_blank">Promise</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Command.html">Command</a>.<a href="Command.html#after">after</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/slashCommand.ts#L74">src/commands/slashCommand.ts:74</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="subcommands" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>subcommands</span><a href="#subcommands" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">subcommands<span class="tsd-signature-symbol">:</span> <a href="Collection.html" class="tsd-signature-type" data-tsd-kind="Class">Collection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="Subcommand.html" class="tsd-signature-type" data-tsd-kind="Class">Subcommand</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
-<div class="tsd-comment tsd-typography"><p>The subcommands for this command.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/slashCommand.ts#L70">src/commands/slashCommand.ts:70</a></li></ul></aside></section></section>
-<section class="tsd-panel-group tsd-member-group">
-<h2>Methods</h2>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/command.ts#L26">src/commands/command.ts:26</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="autocomplete" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>autocomplete</span><a href="#autocomplete" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 <li class="tsd-signature tsd-anchor-link" id="autocomplete.autocomplete-1">autocomplete<span class="tsd-signature-symbol">(</span>interaction<span class="tsd-signature-symbol">: </span><a href="AutocompleteInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">AutocompleteInteraction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">&quot;cached&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="tsd-signature-type external" target="_blank">Promise</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#autocomplete.autocomplete-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Executes an autocomplete handler for this command, replying with no options if an error occurs.</p>
-</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>interaction: <a href="AutocompleteInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">AutocompleteInteraction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">&quot;cached&quot;</span><span class="tsd-signature-symbol">&gt;</span></h5>
-<div class="tsd-comment tsd-typography"><p>the autocomplete interaction to execute a handler for</p>
-</div></li></ul></div>
+<h5>interaction: <a href="AutocompleteInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">AutocompleteInteraction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">&quot;cached&quot;</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="tsd-signature-type external" target="_blank">Promise</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/slashCommand.ts#L141">src/commands/slashCommand.ts:141</a></li></ul></aside></li></ul></section>
-<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="check" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>check</span><a href="#check" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/slashCommand.ts#L45">src/commands/slashCommand.ts:45</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="before" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>before</span><a href="#before" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-<li class="tsd-signature tsd-anchor-link" id="check.check-1">check<span class="tsd-signature-symbol">(</span>request<span class="tsd-signature-symbol">: </span><a href="CommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">CommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">&quot;cached&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="Message.html" class="tsd-signature-type" data-tsd-kind="Class">Message</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><a href="#check.check-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="before.before-1">before<span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type" data-tsd-kind="Type parameter">C</span><span class="tsd-signature-symbol">, </span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="tsd-signature-type external" target="_blank">Promise</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><a href="#before.before-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Checks if the command may be run. If not, it will notify the user.</p>
-
-<h3>Returns</h3><p>true if the command may be run, false otherwise</p>
-</div>
+<section class="tsd-panel tsd-type-parameters">
+<h4>Type Parameters</h4>
+<ul class="tsd-type-parameters">
+<li>
+<h4>C<span class="tsd-signature-symbol"> extends </span><a href="../interfaces/CommandContext.html" class="tsd-signature-type" data-tsd-kind="Interface">CommandContext</a></h4></li></ul></section>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>request: <a href="CommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">CommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">&quot;cached&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="Message.html" class="tsd-signature-type" data-tsd-kind="Class">Message</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h5>
-<div class="tsd-comment tsd-typography"><p>an interaction or message</p>
-</div></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
-<p>Inherited from <a href="Command.html">Command</a>.<a href="Command.html#check">check</a></p>
+<h5><code class="tsd-tag ts-flagRest">Rest</code> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-symbol">[</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type" data-tsd-kind="Type parameter">C</span><span class="tsd-signature-symbol">, </span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">]</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="tsd-signature-type external" target="_blank">Promise</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Command.html">Command</a>.<a href="Command.html#before">before</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/command.ts#L46">src/commands/command.ts:46</a></li></ul></aside></li></ul></section>
-<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="execute" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>execute</span><a href="#execute" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/command.ts#L12">src/commands/command.ts:12</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a id="error" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>error</span><a href="#error" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+<li class="tsd-signature tsd-anchor-link" id="error.error-1">error<span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type" data-tsd-kind="Type parameter">C</span><span class="tsd-signature-symbol">, </span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span>error<span class="tsd-signature-symbol">: </span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error" class="tsd-signature-type external" target="_blank">Error</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="tsd-signature-type external" target="_blank">Promise</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#error.error-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<section class="tsd-panel tsd-type-parameters">
+<h4>Type Parameters</h4>
+<ul class="tsd-type-parameters">
+<li>
+<h4>C<span class="tsd-signature-symbol"> extends </span><a href="../interfaces/CommandContext.html" class="tsd-signature-type" data-tsd-kind="Interface">CommandContext</a></h4></li></ul></section>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><code class="tsd-tag ts-flagRest">Rest</code> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-symbol">[</span>context<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type" data-tsd-kind="Type parameter">C</span><span class="tsd-signature-symbol">, </span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span>error<span class="tsd-signature-symbol">: </span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error" class="tsd-signature-type external" target="_blank">Error</a><span class="tsd-signature-symbol">]</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="tsd-signature-type external" target="_blank">Promise</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Inherited from <a href="Command.html">Command</a>.<a href="Command.html#error">error</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/command.ts#L37">src/commands/command.ts:37</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="run" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>run</span><a href="#run" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="execute.execute-1">execute<span class="tsd-signature-symbol">(</span>interaction<span class="tsd-signature-symbol">: </span><a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">&quot;cached&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="tsd-signature-type external" target="_blank">Promise</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><a href="#execute.execute-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="run.run-1">run<span class="tsd-signature-symbol">(</span>interaction<span class="tsd-signature-symbol">: </span><a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">&quot;cached&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="tsd-signature-type external" target="_blank">Promise</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#run.run-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Executes this command, or a subcommand of this command, notifiying the user if an error occurs.</p>
-</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>interaction: <a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">&quot;cached&quot;</span><span class="tsd-signature-symbol">&gt;</span></h5>
-<div class="tsd-comment tsd-typography"><p>the interaction to execute this command on</p>
-</div></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="tsd-signature-type external" target="_blank">Promise</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<h5>interaction: <a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">&quot;cached&quot;</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="tsd-signature-type external" target="_blank">Promise</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/slashCommand.ts#L115">src/commands/slashCommand.ts:115</a></li></ul></aside></li></ul></section>
-<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="subcommand" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>subcommand</span><a href="#subcommand" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/slashCommand.ts#L22">src/commands/slashCommand.ts:22</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="cleanData" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>clean<wbr/>Data</span><a href="#cleanData" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="subcommand.subcommand-1">subcommand<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><a href="../types/BaseCommandData.html" class="tsd-signature-type" data-tsd-kind="Type alias">BaseCommandData</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/StandaloneSubcommandData.html" class="tsd-signature-type" data-tsd-kind="Interface">StandaloneSubcommandData</a><span class="tsd-signature-symbol">&gt;</span>, run<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>interaction<span class="tsd-signature-symbol">: </span><a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/CacheType.html" class="tsd-signature-type" data-tsd-kind="Type alias">CacheType</a><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Subcommand.html" class="tsd-signature-type" data-tsd-kind="Class">Subcommand</a><a href="#subcommand.subcommand-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="cleanData.cleanData-1">clean<wbr/>Data<span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type" data-tsd-kind="Type parameter">R</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type" data-tsd-kind="Type parameter">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type" data-tsd-kind="Type parameter">R</span><a href="#cleanData.cleanData-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Creates a new subcommand for this command.</p>
-
-<h3>Returns</h3><p>the new subcommand</p>
-</div>
+<section class="tsd-panel tsd-type-parameters">
+<h4>Type Parameters</h4>
+<ul class="tsd-type-parameters">
+<li>
+<h4>T<span class="tsd-signature-symbol"> extends </span><a href="../interfaces/ApplicationCommandSubGroupData.html" class="tsd-signature-type" data-tsd-kind="Interface">ApplicationCommandSubGroupData</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/ApplicationCommandSubCommandData.html" class="tsd-signature-type" data-tsd-kind="Interface">ApplicationCommandSubCommandData</a><span class="tsd-signature-symbol"> | </span><a href="../types/ApplicationCommandData.html" class="tsd-signature-type" data-tsd-kind="Type alias">ApplicationCommandData</a></h4></li>
+<li>
+<h4>R<span class="tsd-signature-symbol"> extends </span><a href="../interfaces/ApplicationCommandSubGroupData.html" class="tsd-signature-type" data-tsd-kind="Interface">ApplicationCommandSubGroupData</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/ApplicationCommandSubCommandData.html" class="tsd-signature-type" data-tsd-kind="Interface">ApplicationCommandSubCommandData</a><span class="tsd-signature-symbol"> | </span><a href="../types/ApplicationCommandData.html" class="tsd-signature-type" data-tsd-kind="Type alias">ApplicationCommandData</a></h4></li></ul></section>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>data: <a href="../types/BaseCommandData.html" class="tsd-signature-type" data-tsd-kind="Type alias">BaseCommandData</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/StandaloneSubcommandData.html" class="tsd-signature-type" data-tsd-kind="Interface">StandaloneSubcommandData</a><span class="tsd-signature-symbol">&gt;</span></h5>
-<div class="tsd-comment tsd-typography"><p>the data for this subcommand</p>
-</div></li>
-<li>
-<h5>run: <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>interaction<span class="tsd-signature-symbol">: </span><a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/CacheType.html" class="tsd-signature-type" data-tsd-kind="Type alias">CacheType</a><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span></h5>
-<div class="tsd-comment tsd-typography"><p>the function to run when this subcommand is executed</p>
-</div>
-<ul class="tsd-parameters">
-<li class="tsd-parameter-signature">
-<ul class="tsd-signatures tsd-kind-type-literal">
-<li class="tsd-signature"><span class="tsd-signature-symbol">(</span>interaction<span class="tsd-signature-symbol">: </span><a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/CacheType.html" class="tsd-signature-type" data-tsd-kind="Type alias">CacheType</a><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-<li class="tsd-description">
-<div class="tsd-parameters">
-<h4 class="tsd-parameters-title">Parameters</h4>
-<ul class="tsd-parameter-list">
-<li>
-<h5>interaction: <a href="ChatInputCommandInteraction.html" class="tsd-signature-type" data-tsd-kind="Class">ChatInputCommandInteraction</a><span class="tsd-signature-symbol">&lt;</span><a href="../types/CacheType.html" class="tsd-signature-type" data-tsd-kind="Type alias">CacheType</a><span class="tsd-signature-symbol">&gt;</span></h5></li>
-<li>
-<h5><code class="tsd-tag ts-flagOptional">Optional</code> options: <span class="tsd-signature-type">any</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4></li></ul></li></ul></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="Subcommand.html" class="tsd-signature-type" data-tsd-kind="Class">Subcommand</a></h4><aside class="tsd-sources">
+<h5>options: <span class="tsd-signature-type" data-tsd-kind="Type parameter">T</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type" data-tsd-kind="Type parameter">R</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/9700bb5/src/commands/slashCommand.ts#L106">src/commands/slashCommand.ts:106</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/slashCommand.ts#L91">src/commands/slashCommand.ts:91</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="extractAutocompleteHandlers" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>extract<wbr/>Autocomplete<wbr/>Handlers</span><a href="#extractAutocompleteHandlers" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="extractAutocompleteHandlers.extractAutocompleteHandlers-1">extract<wbr/>Autocomplete<wbr/>Handlers<span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/SlashCommandOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SlashCommandOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/SubCommandGroupOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubCommandGroupOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/SubCommandOptionOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubCommandOptionOptions</a>, prefix<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><a href="Collection.html" class="tsd-signature-type" data-tsd-kind="Class">Collection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../types/AutocompleteHandler.html" class="tsd-signature-type" data-tsd-kind="Type alias">AutocompleteHandler</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type" data-tsd-kind="Type parameter">T</span><span class="tsd-signature-symbol">]</span><a href="#extractAutocompleteHandlers.extractAutocompleteHandlers-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<section class="tsd-panel tsd-type-parameters">
+<h4>Type Parameters</h4>
+<ul class="tsd-type-parameters">
+<li>
+<h4>T = <span class="tsd-signature-type">any</span></h4></li></ul></section>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>options: <a href="../interfaces/SlashCommandOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SlashCommandOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/SubCommandGroupOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubCommandGroupOptions</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/SubCommandOptionOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubCommandOptionOptions</a></h5></li>
+<li>
+<h5>prefix: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;&#39;</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><a href="Collection.html" class="tsd-signature-type" data-tsd-kind="Class">Collection</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../types/AutocompleteHandler.html" class="tsd-signature-type" data-tsd-kind="Type alias">AutocompleteHandler</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type" data-tsd-kind="Type parameter">T</span><span class="tsd-signature-symbol">]</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/slashCommand.ts#L98">src/commands/slashCommand.ts:98</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="parseOptions" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>parse<wbr/>Options</span><a href="#parseOptions" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="parseOptions.parseOptions-1">parse<wbr/>Options<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">readonly </span><a href="../interfaces/CommandInteractionOption.html" class="tsd-signature-type" data-tsd-kind="Interface">CommandInteractionOption</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">&quot;cached&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><a href="#parseOptions.parseOptions-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>options: <span class="tsd-signature-symbol">readonly </span><a href="../interfaces/CommandInteractionOption.html" class="tsd-signature-type" data-tsd-kind="Interface">CommandInteractionOption</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">&quot;cached&quot;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/AroLeaf/djs-bot/blob/3df6656/src/commands/slashCommand.ts#L69">src/commands/slashCommand.ts:69</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
@@ -298,8 +269,7 @@ new SlashCommand({
 <ul>
 <li><a href="../modules.html">DJS-<wbr/>Bot</a>
 <ul>
-<li class="tsd-kind-namespace"><a href="../modules/logging.html">logging</a></li>
-<li class="tsd-kind-namespace"><a href="../modules/util.html">util</a></li></ul></li>
+<li class="tsd-kind-namespace"><a href="../modules/Hooks.html">Hooks</a></li></ul></li>
 <li class="tsd-kind-namespace tsd-is-external"><a href="../modules/ComponentAssertions.html">Component<wbr/>Assertions</a></li>
 <li class="tsd-kind-namespace tsd-is-external"><a href="../modules/ContextMenuCommandAssertions.html">Context<wbr/>Menu<wbr/>Command<wbr/>Assertions</a></li>
 <li class="tsd-kind-namespace tsd-is-external"><a href="../modules/EmbedAssertions.html">Embed<wbr/>Assertions</a></li>
@@ -314,17 +284,19 @@ new SlashCommand({
 <li class="tsd-kind-constructor tsd-parent-kind-class"><a href="SlashCommand.html#constructor" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-512-path"></use><use href="#icon-512-text"></use></svg>constructor</a></li>
 <li class="tsd-kind-property tsd-parent-kind-class"><a href="SlashCommand.html#autocompleteHandlers" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>autocomplete<wbr/>Handlers</a></li>
 <li class="tsd-kind-property tsd-parent-kind-class"><a href="SlashCommand.html#data" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>data</a></li>
-<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="SlashCommand.html#description" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>description?</a></li>
-<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="SlashCommand.html#flags" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>flags</a></li>
-<li class="tsd-kind-property tsd-parent-kind-class"><a href="SlashCommand.html#guilds" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>guilds</a></li>
+<li class="tsd-kind-property tsd-parent-kind-class"><a href="SlashCommand.html#guilds" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>guilds?</a></li>
+<li class="tsd-kind-property tsd-parent-kind-class"><a href="SlashCommand.html#handler" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>handler</a></li>
+<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="SlashCommand.html#hooks" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>hooks?</a></li>
 <li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="SlashCommand.html#name" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>name</a></li>
-<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="SlashCommand.html#perms" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>perms</a></li>
-<li class="tsd-kind-property tsd-parent-kind-class"><a href="SlashCommand.html#run" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>run</a></li>
 <li class="tsd-kind-property tsd-parent-kind-class"><a href="SlashCommand.html#subcommands" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>subcommands</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="SlashCommand.html#after" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>after</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="SlashCommand.html#autocomplete" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>autocomplete</a></li>
-<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="SlashCommand.html#check" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>check</a></li>
-<li class="tsd-kind-method tsd-parent-kind-class"><a href="SlashCommand.html#execute" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>execute</a></li>
-<li class="tsd-kind-method tsd-parent-kind-class"><a href="SlashCommand.html#subcommand" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>subcommand</a></li></ul></li></ul></nav></div></div>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="SlashCommand.html#before" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>before</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="SlashCommand.html#error" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>error</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="SlashCommand.html#run" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>run</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="SlashCommand.html#cleanData" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>clean<wbr/>Data</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="SlashCommand.html#extractAutocompleteHandlers" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>extract<wbr/>Autocomplete<wbr/>Handlers</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="SlashCommand.html#parseOptions" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>parse<wbr/>Options</a></li></ul></li></ul></nav></div></div>
 <div class="container tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
 <div class="overlay"></div><script src="../assets/main.js"></script></body></html>

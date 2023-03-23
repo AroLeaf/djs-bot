@@ -6,4 +6,5 @@
   "cname": "djs-bot.leaf.moe",
   "skipErrorChecking": true,
   "readme": "readme.md",
+  // "excludeExternals": true,
 }

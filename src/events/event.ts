@@ -1,50 +1,14 @@
-import { Client } from 'discord.js';
-import { EventOptions } from '../types';
+import { EventHandler, EventKey, EventOptions } from '../types/event';
 
-
-/**
- * A class for handling events.
- * @example
- * A simple event handler that logs when the bot is ready.
- * ```js
- * const event = new Event({
- *   name: 'ready',
- *   repeat: false,
- *   event: Events.ClientReady,
- * }, () => console.log('ready!'));
- * 
- * event.init(client);
- * ```
- */
-export class Event {
-  /** The name of this event. */
+export default class Event<K extends EventKey> {
   name?: string;
-  /** The event to listen for. */
-  event: string;
-  /** Whether this event should be repeated. (default: true) */
-  repeat: boolean;
-  /** The function to run when this event is emitted. */
-  run: Function;
-
-  /**
-   * Creates a new event.
-   * @param data - the data for this event
-   * @param run - the function to run when this event is emitted
-   */
-  constructor(data: EventOptions, run: Function) {
-    this.name = data.name;
-    this.event = data.event;
-    this.repeat = data.repeat ?? true;
-    this.run = run;
-  }
-
-  /**
-   * Initializes this event, connecting it to a client.
-   * @param client - the client to listen for this event on
-   */
-  init(client: Client) {
-    this.repeat
-      ? client.on(this.event, (...args) => this.run(...args))
-      : client.once(this.event, (...args) => this.run(...args));
+  event: K;
+  once?: boolean;
+  handler: EventHandler<K>;
+  constructor(options: EventOptions<K>, handler: EventHandler<K>) {
+    this.name = options.name;
+    this.event = options.event;
+    this.once = options.once ?? false;
+    this.handler = handler;
   }
 }
