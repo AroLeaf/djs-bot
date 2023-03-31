@@ -7,7 +7,7 @@ import UserCommand from './commands/userCommand';
 import ComponentsManager from './componentsManager';
 import { DefaultEvents, Event } from './events';
 import EventManager from './events/eventManager';
-import { EventKey } from './types';
+import { EventKey, BotHookKey, BotHookArguments } from './types';
 import { BotHookObject, BotOptions, CommandRegisterOptions, FunctionPrefix, Prefix } from './types/bot';
 
 export default class Bot extends Client {
@@ -87,6 +87,15 @@ export default class Bot extends Client {
       if (guild && isDifferent(await guild.commands.fetch())) {
         await guild.commands.set(commands);
       }
+    }
+  }
+
+  hook<T extends BotHookKey>(events: T | T[], hook: (...args: BotHookArguments[T]) => boolean | undefined) {
+    if (typeof events === 'string') events = [events] as T[];
+    for (const event of events) {
+      if (!this.hooks) this.hooks = {};
+      this.hooks[event] ??= [];
+      this.hooks[event]!.push(hook);
     }
   }
 
