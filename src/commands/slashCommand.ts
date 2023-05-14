@@ -1,5 +1,5 @@
 import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandSubCommandData, ApplicationCommandSubGroupData, AutocompleteInteraction, ChatInputApplicationCommandData, ChatInputCommandInteraction, Collection, CommandInteractionOption } from 'discord.js';
-import { CommandOptions } from '../types';
+import { CommandOptions, SubCommandHandler } from '../types';
 import { AutoCompleteContext, AutocompleteHandler, SlashCommandContext, SlashCommandHandler, SlashCommandOptions, SubCommandGroupOptions, SubCommandOptionOptions } from '../types/slashCommand';
 import { objectOmit } from '../util';
 import Command from './command';
@@ -17,6 +17,10 @@ export default class SlashCommand extends Command {
     this.guilds = options.guilds;
     [this.autocompleteHandlers, this.data] = SlashCommand.extractAutocompleteHandlers(options);
     this.handler = handler;
+  }
+
+  subcommand(options: SubCommandOptionOptions, handler: SubCommandHandler) {
+    return new SubCommand(this, options, handler);
   }
 
   async run(interaction: ChatInputCommandInteraction<'cached'>) {
