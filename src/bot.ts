@@ -9,6 +9,7 @@ import { DefaultEvents, Event } from './events';
 import EventManager from './events/eventManager';
 import { EventKey, BotHookKey, BotHookArguments } from './types';
 import { BotHookObject, BotOptions, CommandRegisterOptions, FunctionPrefix, Prefix } from './types/bot';
+import Module from './modules/module';
 
 export default class Bot extends Client {
   owners: string[];
@@ -96,6 +97,18 @@ export default class Bot extends Client {
       if (!this.hooks) this.hooks = {};
       this.hooks[event] ??= [];
       this.hooks[event]!.push(hook);
+    }
+  }
+
+  loadModule(module: Module) {
+    for (const command of module.commands) {
+      this.commands.add(command);
+    }
+    for (const event of module.events) {
+      this.events.add(event);
+    }
+    for (const hook of module.hooks) {
+      this.hook(hook.events, hook.run);
     }
   }
 
