@@ -3,7 +3,7 @@ import { Event } from '../events';
 import { BotHookArguments } from './bot';
 import { EventKey } from './event';
 
-type NestedArray<T> = (T | NestedArray<T>)[];
+export type NestedArray<T> = (T | NestedArray<T>)[];
 
 export interface ModuleHookOptions<T extends EventKey> {
   events: T[];
