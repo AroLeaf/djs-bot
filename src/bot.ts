@@ -91,7 +91,7 @@ export default class Bot extends Client {
     }
   }
 
-  hook<T extends BotHookKey>(events: T | T[], hook: (...args: BotHookArguments[T]) => boolean | undefined) {
+  hook<T extends BotHookKey>(events: T | T[], hook: (...args: BotHookArguments[T]) => Promise<boolean | undefined>) {
     if (typeof events === 'string') events = [events] as T[];
     for (const event of events) {
       if (!this.hooks) this.hooks = {};

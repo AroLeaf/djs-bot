@@ -7,7 +7,7 @@ export type NestedArray<T> = (T | NestedArray<T>)[];
 
 export interface ModuleHookOptions<T extends EventKey> {
   events: T[];
-  run(...args: BotHookArguments[T]): boolean | undefined;
+  run(...args: BotHookArguments[T]): Promise<boolean | undefined>;
 }
 
 export interface ModuleOptions {

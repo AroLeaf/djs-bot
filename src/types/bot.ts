@@ -40,7 +40,7 @@ export interface BotHookArguments extends ClientEvents {
 }
 
 export type BotHookObject = {
-  [key in BotHookKey]?: ((...args: BotHookArguments[key]) => boolean | undefined)[];
+  [key in BotHookKey]?: ((...args: BotHookArguments[key]) => Promise<boolean | undefined>)[];
 }
 
 export interface CommandRegisterOptions {
