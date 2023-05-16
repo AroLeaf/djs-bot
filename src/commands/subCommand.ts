@@ -2,7 +2,7 @@ import { SubCommandHandler, SubCommandOptions } from '../types/subCommand';
 import { CommandOptions } from '../types/command';
 import Command from './command';
 import SlashCommand from './slashCommand';
-import { ApplicationCommandSubCommandData, AutocompleteInteraction, ChatInputCommandInteraction, Collection } from 'discord.js';
+import { ApplicationCommandOptionType, ApplicationCommandSubCommandData, AutocompleteInteraction, ChatInputCommandInteraction, Collection } from 'discord.js';
 import { AutoCompleteContext, AutocompleteHandler } from '../types';
 
 export default class SubCommand extends Command {
@@ -13,10 +13,11 @@ export default class SubCommand extends Command {
   handler: SubCommandHandler;
 
   constructor(parent: SlashCommand, options: SubCommandOptions, handler: SubCommandHandler) {
+    options.type = ApplicationCommandOptionType.Subcommand;
     super(options as CommandOptions);
     this.parent = parent;
     this.data = SlashCommand.cleanData(options);
-    [this.autocompleteHandlers, this.data] = SlashCommand.extractAutocompleteHandlers(options);
+    [this.autocompleteHandlers, this.data] = SlashCommand.extractAutocompleteHandlers(options as ApplicationCommandSubCommandData);
     this.handler = handler;
 
     this.parent.subcommands.set(this.label, this);

@@ -1,10 +1,11 @@
-import { ApplicationCommandOptionData, ApplicationCommandSubGroupData, ApplicationCommandSubCommandData, ChatInputCommandInteraction } from 'discord.js';
+import { ApplicationCommandOptionData, ApplicationCommandSubGroupData, ApplicationCommandSubCommandData, ChatInputCommandInteraction, ApplicationCommandOptionType } from 'discord.js';
 import SubCommand from '../commands/subCommand';
 import { CommandContext, CommandOptions } from './command';
 import { AutocompleteHandler } from './slashCommand';
 
 export type ApplicationSubCommandOptionData = Exclude<ApplicationCommandOptionData, ApplicationCommandSubGroupData | ApplicationCommandSubCommandData> & { onAutocomplete?: AutocompleteHandler };
-export interface SubCommandOptions extends CommandOptions<SubCommandContext>, ApplicationCommandSubCommandData {
+export interface SubCommandOptions extends CommandOptions<SubCommandContext>, Omit<ApplicationCommandSubCommandData, 'type'> {
+  type?: ApplicationCommandOptionType.Subcommand;
   options?: ApplicationSubCommandOptionData[];
   group?: string;
 }
