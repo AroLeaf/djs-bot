@@ -11,7 +11,8 @@
   "scripts": {
     "build": "rm -rf dist && npx swc src -d dist && node buildExports.js",
     "types": "rm -rf types && npx tsc --declaration --emitDeclarationOnly --declarationDir types",
-    "docs": "npx typedoc"
+    "docs": "npx typedoc",
+    "all": "npm run build && npm run types && npm run docs"
   },
   "license": "MIT",
   "devDependencies": {

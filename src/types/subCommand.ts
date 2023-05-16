@@ -4,7 +4,7 @@ import { CommandContext, CommandOptions } from './command';
 import { AutocompleteHandler } from './slashCommand';
 
 export type ApplicationSubCommandOptionData = Exclude<ApplicationCommandOptionData, ApplicationCommandSubGroupData | ApplicationCommandSubCommandData> & { onAutocomplete?: AutocompleteHandler };
-export interface SubCommandOptions extends CommandOptions, ApplicationCommandSubCommandData {
+export interface SubCommandOptions extends CommandOptions<SubCommandContext>, ApplicationCommandSubCommandData {
   options?: ApplicationSubCommandOptionData[];
   group?: string;
 }
