@@ -19,8 +19,22 @@ export default class SlashCommand extends Command {
     this.handler = handler;
   }
 
-  subcommand(options: SubCommandOptions, handler: SubCommandHandler) {
-    return new SubCommand(this, options, handler);
+  subcommand(subcommand: SubCommand): SubCommand;
+  subcommand(options: SubCommandOptions, handler: SubCommandHandler): SubCommand;
+  subcommand(options: SubCommandOptions | SubCommand, handler?: SubCommandHandler): SubCommand {
+    const subCommand = options instanceof SubCommand ? options : new SubCommand(this, options, handler!);
+    this.subcommands.set(subCommand.label, subCommand);
+    if (subCommand.group) {
+      const group = this.data.options?.find(option => option.type === ApplicationCommandOptionType.SubcommandGroup && option.name === subCommand.group) as ApplicationCommandSubGroupData | undefined;
+      if (!group) throw new Error(`Command ${this.name} does not have a subcommand group named ${subCommand.group}!`);
+      group.options ??= [];
+      group.options.push(subCommand.data);
+    }
+    else {
+      this.data.options ??= [];
+      this.data.options.push(subCommand.data);
+    }
+    return subCommand;
   }
 
   async run(interaction: ChatInputCommandInteraction<'cached'>) {
