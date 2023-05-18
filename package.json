@@ -1,6 +1,6 @@
 {
   "name": "@aroleaf/djs-bot",
-  "version": "5.2.6",
+  "version": "5.2.7",
   "decription": "A bot wrapper for discord.js",
   "main": "dist/index.js",
   "exports": {
