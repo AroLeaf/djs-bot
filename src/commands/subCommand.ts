@@ -23,7 +23,7 @@ export default class SubCommand extends Command {
   }
 
   get label() {
-    return this.group ? `${this.group} ${this.name}` : this.name;
+    return this.group ? `${this.group}.${this.name}` : this.name;
   }
 
   async run(interaction: ChatInputCommandInteraction<'cached'>) {
