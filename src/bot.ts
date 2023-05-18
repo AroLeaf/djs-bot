@@ -1,15 +1,11 @@
 import { ApplicationCommand, ApplicationCommandData, ApplicationCommandType, Client, Collection, Events, Message, } from 'discord.js';
 import XRegExp from 'xregexp';
-import { SlashCommand } from './commands';
-import CommandManager from './commands/commandManager';
-import MessageCommand from './commands/messageCommand';
-import UserCommand from './commands/userCommand';
+import { SlashCommand, CommandManager, MessageCommand, UserCommand } from './commands';
 import ComponentsManager from './componentsManager';
-import { DefaultEvents, Event } from './events';
-import EventManager from './events/eventManager';
+import { DefaultEvents, Event, EventManager } from './events';
 import { EventKey, BotHookKey, BotHookArguments } from './types';
 import { BotHookObject, BotOptions, CommandRegisterOptions, FunctionPrefix, Prefix } from './types/bot';
-import Module from './modules/module';
+import { Module } from './modules';
 
 export default class Bot extends Client {
   owners: string[];
