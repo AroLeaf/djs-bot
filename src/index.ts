@@ -7,5 +7,6 @@ export * from './util';
 
 import Bot from './bot';
 import ComponentsManager from './componentsManager';
+import Loader from './loader';
 
-export { Bot, ComponentsManager };
+export { Bot, ComponentsManager, Loader };

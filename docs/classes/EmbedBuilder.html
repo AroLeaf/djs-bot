@@ -22,7 +22,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">EmbedBuilder</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/discord.js/typings/index.d.ts:845</li></ul></aside>
+<li>Defined in node_modules/discord.js/typings/index.d.ts:851</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -68,15 +68,17 @@
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Overrides BuildersEmbed.constructor</p>
 <ul>
-<li>Defined in node_modules/discord.js/typings/index.d.ts:846</li></ul></aside></li></ul></section></section>
+<li>Defined in node_modules/discord.js/typings/index.d.ts:852</li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="data" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>data</span><a href="#data" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">data<span class="tsd-signature-symbol">:</span> <a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a></div><aside class="tsd-sources">
+<div class="tsd-signature">data<span class="tsd-signature-symbol">:</span> <a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a></div>
+<div class="tsd-comment tsd-typography"><p>The API data associated with this embed.</p>
+</div><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.data</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:125</li></ul></aside></section></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:163</li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="addFields" class="tsd-anchor"></a>
@@ -84,17 +86,17 @@
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 <li class="tsd-signature tsd-anchor-link" id="addFields.addFields-1">add<wbr/>Fields<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>fields<span class="tsd-signature-symbol">: </span><a href="../types/RestOrArray.html" class="tsd-signature-type" data-tsd-kind="Type alias">RestOrArray</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIEmbedField.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbedField</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a><a href="#addFields.addFields-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Appends fields to the embed</p>
+<div class="tsd-comment tsd-typography"><p>Appends fields to the embed.</p>
 
 <h3>Remarks</h3><p>This method accepts either an array of fields or a variable number of field parameters.
 The maximum amount of fields that can be added is 25.</p>
 
-<h3>Example</h3><p>Using an array</p>
-<pre><code class="language-ts"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">fields</span><span class="hl-0">: </span><span class="hl-9">APIEmbedField</span><span class="hl-0">[] = ...;</span><br/><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">embed</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">EmbedBuilder</span><span class="hl-0">()</span><br/><span class="hl-0">    .</span><span class="hl-6">addFields</span><span class="hl-0">(</span><span class="hl-3">fields</span><span class="hl-0">);</span>
+<h3>Example</h3><p>Using an array:</p>
+<pre><code class="language-ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">fields</span><span class="hl-1">: </span><span class="hl-9">APIEmbedField</span><span class="hl-1">[] = ...;</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">embed</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">EmbedBuilder</span><span class="hl-1">()</span><br/><span class="hl-1">    .</span><span class="hl-0">addFields</span><span class="hl-1">(</span><span class="hl-4">fields</span><span class="hl-1">);</span>
 </code></pre>
 
-<h3>Example</h3><p>Using rest parameters (variadic)</p>
-<pre><code class="language-ts"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">embed</span><span class="hl-0"> = </span><span class="hl-4">new</span><span class="hl-0"> </span><span class="hl-6">EmbedBuilder</span><span class="hl-0">()</span><br/><span class="hl-0">    .</span><span class="hl-6">addFields</span><span class="hl-0">(</span><br/><span class="hl-0">        { </span><span class="hl-3">name:</span><span class="hl-0"> </span><span class="hl-1">&#39;Field 1&#39;</span><span class="hl-0">, </span><span class="hl-3">value:</span><span class="hl-0"> </span><span class="hl-1">&#39;Value 1&#39;</span><span class="hl-0"> },</span><br/><span class="hl-0">        { </span><span class="hl-3">name:</span><span class="hl-0"> </span><span class="hl-1">&#39;Field 2&#39;</span><span class="hl-0">, </span><span class="hl-3">value:</span><span class="hl-0"> </span><span class="hl-1">&#39;Value 2&#39;</span><span class="hl-0"> },</span><br/><span class="hl-0">    );</span>
+<h3>Example</h3><p>Using rest parameters (variadic):</p>
+<pre><code class="language-ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">embed</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">EmbedBuilder</span><span class="hl-1">()</span><br/><span class="hl-1">    .</span><span class="hl-0">addFields</span><span class="hl-1">(</span><br/><span class="hl-1">        { </span><span class="hl-4">name:</span><span class="hl-1"> </span><span class="hl-2">&#39;Field 1&#39;</span><span class="hl-1">, </span><span class="hl-4">value:</span><span class="hl-1"> </span><span class="hl-2">&#39;Value 1&#39;</span><span class="hl-1"> },</span><br/><span class="hl-1">        { </span><span class="hl-4">name:</span><span class="hl-1"> </span><span class="hl-2">&#39;Field 2&#39;</span><span class="hl-1">, </span><span class="hl-4">value:</span><span class="hl-1"> </span><span class="hl-2">&#39;Value 2&#39;</span><span class="hl-1"> },</span><br/><span class="hl-1">    );</span>
 </code></pre>
 </div>
 <div class="tsd-parameters">
@@ -107,25 +109,25 @@ The maximum amount of fields that can be added is 25.</p>
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.addFields</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:151</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:194</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="setAuthor" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Author</span><a href="#setAuthor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 <li class="tsd-signature tsd-anchor-link" id="setAuthor.setAuthor-1">set<wbr/>Author<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/EmbedAuthorOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">EmbedAuthorOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a><a href="#setAuthor.setAuthor-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Sets the author of this embed</p>
+<div class="tsd-comment tsd-typography"><p>Sets the author of this embed.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5>options: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/EmbedAuthorOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">EmbedAuthorOptions</a></h5>
-<div class="tsd-comment tsd-typography"><p>The options for the author</p>
+<div class="tsd-comment tsd-typography"><p>The options to use</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.setAuthor</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:198</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:241</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="setColor" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Color</span><a href="#setColor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
@@ -139,31 +141,31 @@ The maximum amount of fields that can be added is 25.</p>
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Overrides BuildersEmbed.setColor</p>
 <ul>
-<li>Defined in node_modules/discord.js/typings/index.d.ts:847</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/discord.js/typings/index.d.ts:853</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="setDescription" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Description</span><a href="#setDescription" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 <li class="tsd-signature tsd-anchor-link" id="setDescription.setDescription-1">set<wbr/>Description<span class="tsd-signature-symbol">(</span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a><a href="#setDescription.setDescription-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Sets the description of this embed</p>
+<div class="tsd-comment tsd-typography"><p>Sets the description of this embed.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5>description: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-<div class="tsd-comment tsd-typography"><p>The description</p>
+<div class="tsd-comment tsd-typography"><p>The description to use</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.setDescription</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:210</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:253</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="setFields" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Fields</span><a href="#setFields" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 <li class="tsd-signature tsd-anchor-link" id="setFields.setFields-1">set<wbr/>Fields<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>fields<span class="tsd-signature-symbol">: </span><a href="../types/RestOrArray.html" class="tsd-signature-type" data-tsd-kind="Type alias">RestOrArray</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIEmbedField.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbedField</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a><a href="#setFields.setFields-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Sets the embed&#39;s fields</p>
+<div class="tsd-comment tsd-typography"><p>Sets the fields for this embed.</p>
 
 <h3>Remarks</h3><p>This method is an alias for <a href="EmbedBuilder.html#spliceFields">spliceFields</a>. More specifically,
 it splices the entire array of fields, replacing them with the provided fields.</p>
@@ -179,137 +181,137 @@ it splices the entire array of fields, replacing them with the provided fields.<
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.setFields</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:192</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:235</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="setFooter" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Footer</span><a href="#setFooter" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 <li class="tsd-signature tsd-anchor-link" id="setFooter.setFooter-1">set<wbr/>Footer<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/EmbedFooterOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">EmbedFooterOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a><a href="#setFooter.setFooter-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Sets the footer of this embed</p>
+<div class="tsd-comment tsd-typography"><p>Sets the footer of this embed.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5>options: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="../types/EmbedFooterOptions.html" class="tsd-signature-type" data-tsd-kind="Type alias">EmbedFooterOptions</a></h5>
-<div class="tsd-comment tsd-typography"><p>The options for the footer</p>
+<div class="tsd-comment tsd-typography"><p>The footer to use</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.setFooter</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:216</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:259</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="setImage" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Image</span><a href="#setImage" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 <li class="tsd-signature tsd-anchor-link" id="setImage.setImage-1">set<wbr/>Image<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a><a href="#setImage.setImage-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Sets the image of this embed</p>
+<div class="tsd-comment tsd-typography"><p>Sets the image of this embed.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5>url: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-<div class="tsd-comment tsd-typography"><p>The URL of the image</p>
+<div class="tsd-comment tsd-typography"><p>The image URL to use</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.setImage</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:222</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:265</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="setThumbnail" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Thumbnail</span><a href="#setThumbnail" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 <li class="tsd-signature tsd-anchor-link" id="setThumbnail.setThumbnail-1">set<wbr/>Thumbnail<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a><a href="#setThumbnail.setThumbnail-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Sets the thumbnail of this embed</p>
+<div class="tsd-comment tsd-typography"><p>Sets the thumbnail of this embed.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5>url: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-<div class="tsd-comment tsd-typography"><p>The URL of the thumbnail</p>
+<div class="tsd-comment tsd-typography"><p>The thumbnail URL to use</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.setThumbnail</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:228</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:271</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="setTimestamp" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Timestamp</span><a href="#setTimestamp" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 <li class="tsd-signature tsd-anchor-link" id="setTimestamp.setTimestamp-1">set<wbr/>Timestamp<span class="tsd-signature-symbol">(</span>timestamp<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" class="tsd-signature-type external" target="_blank">Date</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a><a href="#setTimestamp.setTimestamp-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Sets the timestamp of this embed</p>
+<div class="tsd-comment tsd-typography"><p>Sets the timestamp of this embed.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> timestamp: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" class="tsd-signature-type external" target="_blank">Date</a></h5>
-<div class="tsd-comment tsd-typography"><p>The timestamp or date</p>
+<div class="tsd-comment tsd-typography"><p>The timestamp or date to use</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.setTimestamp</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:234</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:277</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="setTitle" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Title</span><a href="#setTitle" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 <li class="tsd-signature tsd-anchor-link" id="setTitle.setTitle-1">set<wbr/>Title<span class="tsd-signature-symbol">(</span>title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a><a href="#setTitle.setTitle-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Sets the title of this embed</p>
+<div class="tsd-comment tsd-typography"><p>Sets the title for this embed.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5>title: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-<div class="tsd-comment tsd-typography"><p>The title</p>
+<div class="tsd-comment tsd-typography"><p>The title to use</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.setTitle</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:240</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:283</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="setURL" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>setURL</span><a href="#setURL" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 <li class="tsd-signature tsd-anchor-link" id="setURL.setURL-1">setURL<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a><a href="#setURL.setURL-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Sets the URL of this embed</p>
+<div class="tsd-comment tsd-typography"><p>Sets the URL of this embed.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5>url: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-<div class="tsd-comment tsd-typography"><p>The URL</p>
+<div class="tsd-comment tsd-typography"><p>The URL to use</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.setURL</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:246</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:289</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="spliceFields" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>splice<wbr/>Fields</span><a href="#spliceFields" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 <li class="tsd-signature tsd-anchor-link" id="spliceFields.spliceFields-1">splice<wbr/>Fields<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, deleteCount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, <span class="tsd-signature-symbol">...</span>fields<span class="tsd-signature-symbol">: </span><a href="../interfaces/APIEmbedField.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbedField</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a><a href="#spliceFields.spliceFields-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Removes, replaces, or inserts fields in the embed.</p>
+<div class="tsd-comment tsd-typography"><p>Removes, replaces, or inserts fields for this embed.</p>
 
 <h3>Remarks</h3><p>This method behaves similarly
-to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice">Array.prototype.splice</a>.
+to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice">Array.prototype.splice()</a>.
 The maximum amount of fields that can be added is 25.</p>
 <p>It&#39;s useful for modifying and adjusting order of the already-existing fields of an embed.</p>
 
-<h3>Example</h3><p>Remove the first field</p>
-<pre><code class="language-ts"><span class="hl-3">embed</span><span class="hl-0">.</span><span class="hl-6">spliceFields</span><span class="hl-0">(</span><span class="hl-8">0</span><span class="hl-0">, </span><span class="hl-8">1</span><span class="hl-0">);</span>
+<h3>Example</h3><p>Remove the first field:</p>
+<pre><code class="language-ts"><span class="hl-4">embed</span><span class="hl-1">.</span><span class="hl-0">spliceFields</span><span class="hl-1">(</span><span class="hl-7">0</span><span class="hl-1">, </span><span class="hl-7">1</span><span class="hl-1">);</span>
 </code></pre>
 
-<h3>Example</h3><p>Remove the first n fields</p>
-<pre><code class="language-ts"><span class="hl-4">const</span><span class="hl-0"> </span><span class="hl-5">n</span><span class="hl-0"> = </span><span class="hl-8">4</span><br/><span class="hl-3">embed</span><span class="hl-0">.</span><span class="hl-6">spliceFields</span><span class="hl-0">(</span><span class="hl-8">0</span><span class="hl-0">, </span><span class="hl-3">n</span><span class="hl-0">);</span>
+<h3>Example</h3><p>Remove the first n fields:</p>
+<pre><code class="language-ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">n</span><span class="hl-1"> = </span><span class="hl-7">4</span><span class="hl-1">;</span><br/><span class="hl-4">embed</span><span class="hl-1">.</span><span class="hl-0">spliceFields</span><span class="hl-1">(</span><span class="hl-7">0</span><span class="hl-1">, </span><span class="hl-4">n</span><span class="hl-1">);</span>
 </code></pre>
 
-<h3>Example</h3><p>Remove the last field</p>
-<pre><code class="language-ts"><span class="hl-3">embed</span><span class="hl-0">.</span><span class="hl-6">spliceFields</span><span class="hl-0">(-</span><span class="hl-8">1</span><span class="hl-0">, </span><span class="hl-8">1</span><span class="hl-0">);</span>
+<h3>Example</h3><p>Remove the last field:</p>
+<pre><code class="language-ts"><span class="hl-4">embed</span><span class="hl-1">.</span><span class="hl-0">spliceFields</span><span class="hl-1">(-</span><span class="hl-7">1</span><span class="hl-1">, </span><span class="hl-7">1</span><span class="hl-1">);</span>
 </code></pre>
 </div>
 <div class="tsd-parameters">
@@ -330,18 +332,21 @@ The maximum amount of fields that can be added is 25.</p>
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.spliceFields</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:181</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:224</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a id="toJSON" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>toJSON</span><a href="#toJSON" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 <li class="tsd-signature tsd-anchor-link" id="toJSON.toJSON-1">toJSON<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a><a href="#toJSON.toJSON-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Transforms the embed to a plain object</p>
+<div class="tsd-comment tsd-typography"><p>Serializes this builder to API-compatible JSON data.</p>
+
+<h3>Remarks</h3><p>This method runs validations on the data before serializing it.
+As such, it may throw an error if the data is invalid.</p>
 </div>
 <h4 class="tsd-returns-title">Returns <a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a></h4><aside class="tsd-sources">
 <p>Inherited from BuildersEmbed.toJSON</p>
 <ul>
-<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:250</li></ul></aside></li></ul></section>
+<li>Defined in node_modules/@discordjs/builders/dist/index.d.ts:297</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external"><a id="from" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>from</span><a href="#from" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
@@ -354,7 +359,7 @@ The maximum amount of fields that can be added is 25.</p>
 <h5>other: <a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/JSONEncodable.html" class="tsd-signature-type" data-tsd-kind="Interface">JSONEncodable</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/APIEmbed.html" class="tsd-signature-type" data-tsd-kind="Interface">APIEmbed</a><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="EmbedBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">EmbedBuilder</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in node_modules/discord.js/typings/index.d.ts:848</li></ul></aside></li></ul></section></section></div>
+<li>Defined in node_modules/discord.js/typings/index.d.ts:854</li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
