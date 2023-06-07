@@ -8,6 +8,7 @@
     "externalHelpers": true
   },
   "module": {
-    "type": "commonjs"
+    "type": "commonjs",
+    "ignoreDynamic": true
   }
 }

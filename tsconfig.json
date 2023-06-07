@@ -1,4 +1,8 @@
 {
   "extends": "@aroleaf/tsconfig",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node16"
+  },
   "include": ["src/**/*"]
 }

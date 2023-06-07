@@ -15,12 +15,12 @@ npm i @aroleaf/djs-bot
 ## Example
 
 ```js
-import { Bot, GatewayIntentBits, importRecursive } from '@aroleaf/djs-bot';
+import { Bot, GatewayIntentBits, Loader } from '@aroleaf/djs-bot';
 
 const bot = new Bot({
   intents: [ GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages ],
-  commands: await importRecursive('commands'),
-  events: await importRecursive('events'),
+  commands: await Loader.import('commands'),
+  events: await Loader.import('events'),
   owner: '123456789012345678',
   prefix: '!',
 });
