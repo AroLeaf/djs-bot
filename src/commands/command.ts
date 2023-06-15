@@ -35,7 +35,7 @@ export default abstract class Command {
   }
 
   async error<C extends CommandContext>(...args: CommandHookArguments<C>['error']) {
-    if (!this.hooks?.error) return;
+    if (!this.hooks?.error?.length) throw args[2];
     for (const hook of this.hooks.error) {
       await hook(...args);
     }
