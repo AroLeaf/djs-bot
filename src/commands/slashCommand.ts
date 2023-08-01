@@ -1,4 +1,4 @@
-import { ApplicationCommandData, ApplicationCommandOptionType, ApplicationCommandSubCommandData, ApplicationCommandSubGroupData, AutocompleteInteraction, ChatInputApplicationCommandData, ChatInputCommandInteraction, Collection, CommandInteractionOption } from 'discord.js';
+import { ApplicationCommandData, ApplicationCommandOptionData, ApplicationCommandOptionType, ApplicationCommandSubCommandData, ApplicationCommandSubGroupData, AutocompleteInteraction, ChatInputApplicationCommandData, ChatInputCommandInteraction, Collection, CommandInteractionOption } from 'discord.js';
 import { CommandOptions, SubCommandHandler, SubCommandOptions } from '../types';
 import { AutoCompleteContext, AutocompleteHandler, SlashCommandContext, SlashCommandHandler, SlashCommandOptions, SubCommandGroupOptions, SubCommandOptionOptions } from '../types/slashCommand';
 import { objectOmit } from '../util';
@@ -28,11 +28,11 @@ export default class SlashCommand extends Command {
       const group = this.data.options?.find(option => option.type === ApplicationCommandOptionType.SubcommandGroup && option.name === subCommand.group) as ApplicationCommandSubGroupData | undefined;
       if (!group) throw new Error(`Command ${this.name} does not have a subcommand group named ${subCommand.group}!`);
       group.options ??= [];
-      group.options.push(subCommand.data);
+      (<ApplicationCommandSubCommandData[]>group.options).push(subCommand.data);
     }
     else {
       this.data.options ??= [];
-      this.data.options.push(subCommand.data);
+      (<ApplicationCommandOptionData[]>this.data.options).push(subCommand.data);
     }
     return subCommand;
   }

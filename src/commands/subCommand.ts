@@ -17,8 +17,7 @@ export default class SubCommand extends Command {
     super(options as CommandOptions);
     this.parent = parent;
     this.group = options.group;
-    this.data = SlashCommand.cleanData(options);
-    [this.autocompleteHandlers, this.data] = SlashCommand.extractAutocompleteHandlers(options as ApplicationCommandSubCommandData);
+    [this.autocompleteHandlers, this.data] = SlashCommand.extractAutocompleteHandlers(options as any /* hate to do this but DJS apparently hates devs like me so whatever */);
     this.handler = handler;
   }
 
