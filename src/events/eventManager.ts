@@ -18,7 +18,7 @@ export default class EventManager {
       const events = this.events.get(eventkey);
       const ok = await this.runHooks(eventkey, ...args);
       if (!events?.length || ok === false) return;
-      for (const event of events) {
+      for (const event of [...events]) {
         event.handler(...args);
         if (event.once) events.splice(events.indexOf(event), 1);
       }
