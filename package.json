@@ -24,17 +24,17 @@
   "devDependencies": {
     "@aroleaf/tsconfig": "^1.1.0",
     "@swc/cli": "^0.1.65",
-    "@swc/core": "^1.4.17",
-    "@types/node": "^20.12.7",
+    "@swc/core": "^1.7.23",
+    "@types/node": "^20.16.5",
     "typedoc": "^0.24.8",
-    "typedoc-plugin-mdn-links": "^3.1.22",
+    "typedoc-plugin-mdn-links": "^3.2.11",
     "typescript": "^5.1.6"
   },
   "dependencies": {
     "@aroleaf/arguments": "^0.2.5",
     "@aroleaf/parser": "^2.5.1",
-    "@swc/helpers": "^0.5.10",
-    "discord.js": "^14.14.1",
+    "@swc/helpers": "^0.5.13",
+    "discord.js": "^14.16.1",
     "xregexp": "^5.1.1"
   },
   "types": "types/index.d.ts",
