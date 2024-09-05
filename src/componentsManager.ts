@@ -1,4 +1,4 @@
-import { ActionRowData, Client, Collection, ComponentData, ComponentType, MessageActionRowComponentData } from 'discord.js';
+import { ActionRowData, ButtonStyle, Client, Collection, ComponentData, ComponentType, MessageActionRowComponentData } from 'discord.js';
 import { ComponentHandler, ComponentOptions } from './types/components';
 import { objectOmit } from './util';
 
@@ -27,7 +27,7 @@ export default class ComponentsManager {
       components: <any>data.map(d => this.create(d)),
     }
     
-    if (!('customId' in data) || !data.run) return data;
+    if (data.type === ComponentType.Button && data.style === ButtonStyle.Link || !data.run) return data;
     data.customId ||= this.#generateId();
     this.cache.set(data.customId, data.run);
     return <ComponentData>objectOmit(data, 'run');
