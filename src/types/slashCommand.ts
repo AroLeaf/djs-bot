@@ -1,4 +1,4 @@
-import { ApplicationCommandSubCommandData, ApplicationCommandSubGroupData, AutocompleteInteraction, ChatInputApplicationCommandData, ChatInputCommandInteraction } from 'discord.js';
+import { ApplicationCommandSubCommandData, ApplicationCommandSubGroupData, AutocompleteFocusedOption, AutocompleteInteraction, ChatInputApplicationCommandData, ChatInputCommandInteraction } from 'discord.js';
 import { SlashCommand } from '../commands';
 import SubCommand from '../commands/subCommand';
 import { CommandContext, CommandOptions } from './command';
@@ -18,7 +18,7 @@ export interface SlashCommandOptions extends CommandOptions<SlashCommandContext>
 }
 
 export type SlashCommandHandler = (context: SlashCommandContext, options: any) => any;
-export type AutocompleteHandler = (context: AutoCompleteContext, options: any) => any;
+export type AutocompleteHandler = (context: AutoCompleteContext, option: AutocompleteFocusedOption) => any;
 
 export interface SlashCommandContext extends CommandContext {
   command: SlashCommand;
