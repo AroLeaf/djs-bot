@@ -1,0 +1,1 @@
+export type Filter<T, F> = T extends F ? T : never;

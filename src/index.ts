@@ -1,12 +1,8 @@
-export * from 'discord.js';
-export * from './events';
 export * from './commands';
-export * from './types';
-export * from './modules';
-export * from './util';
+export * from './events';
+export * from './managers';
 
-import Bot from './bot';
-import ComponentsManager from './componentsManager';
-import Loader from './loader';
+export * from './Bot';
+export * from './Loader';
 
-export { Bot, ComponentsManager, Loader };
+export * from 'discord.js';
