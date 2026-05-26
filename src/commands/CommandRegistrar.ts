@@ -1,6 +1,6 @@
 import { ApplicationCommand, Collection } from 'discord.js';
 import type { CommandManager } from '../managers';
-import { InteractionCommand } from './InteractionCommand';
+import { InteractionCommand } from './interactionCommands';
 
 export interface CommandSyncOptions {
   guilds?: string[],
@@ -55,6 +55,7 @@ export class CommandRegistrar {
     const grouped = this.#groupCommands(this.manager.getApplicationCommands().values(), options);
     const guildSet = new Set(options.guilds);
 
+    // TODO: Promise.all this
     for (const [guildId, commands] of grouped) {
       if (!options.clearImpliedGuilds && !guildSet.has(guildId) && !commands.length) continue;
 
@@ -64,8 +65,7 @@ export class CommandRegistrar {
       if (!commandManager) continue;
       
       const applicationCommands = await commandManager.fetch({});
-      if (this.#isDesynced(commands, applicationCommands.values().toArray()))
-        commandManager.set(commands.map(command => command.APIData));
+      if (this.#isDesynced(commands, applicationCommands.values().toArray())) commandManager.set(commands.map(command => command.APIData));
     }
   }
 }

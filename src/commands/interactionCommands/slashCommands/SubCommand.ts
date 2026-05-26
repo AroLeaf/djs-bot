@@ -1,5 +1,5 @@
 import { ApplicationCommandOptionType, type APIApplicationCommandSubcommandOption, type ApplicationCommandSubCommandData } from 'discord.js';
-import { Command, type CommandOptions } from './Command';
+import { Command, type CommandOptions } from '../../Command';
 import { SlashCommand, type SlashCommandHandler, type SlashCommandHandlerOptionsFromOptions } from './SlashCommand';
 import type { SlashCommandContext } from './SlashCommandContext';
 import { SlashCommandOption, type SlashCommandOptionOptions } from './SlashCommandOption';
@@ -45,6 +45,7 @@ export class SubCommand<const T extends SubCommandOptions = SubCommandOptions, A
     }
   }
 
+  // TODO: run parent hooks (both command and group)
   async run(ctx: SlashCommandContext, options: A): Promise<any> {
     try {
       if (!await this.checkHooks(ctx)) return;

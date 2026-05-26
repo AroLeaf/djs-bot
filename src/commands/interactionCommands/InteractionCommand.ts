@@ -1,5 +1,5 @@
-import { PermissionFlagsBits, PermissionsBitField, type ApplicationCommandData, type ApplicationCommandType, type ApplicationIntegrationType, type InteractionContextType } from 'discord.js';
-import { Command, type CommandOptions } from './Command';
+import { CommandInteraction, PermissionFlagsBits, PermissionsBitField, type ApplicationCommandData, type ApplicationCommandType, type ApplicationIntegrationType, type InteractionContextType } from 'discord.js';
+import { Command, type CommandOptions } from '../Command';
 
 
 export interface InteractionCommandOptions extends CommandOptions {
@@ -8,6 +8,7 @@ export interface InteractionCommandOptions extends CommandOptions {
   defaultMemberPermissions?: PermissionsBitField;
   nsfw?: boolean;
   guilds?: string[];
+  ephemeral?: boolean;
 }
 
 
@@ -18,6 +19,7 @@ export abstract class InteractionCommand extends Command {
   defaultMemberPermissions?: PermissionsBitField;
   nsfw: boolean;
   guilds?: string[];
+  ephemeral: boolean;
 
   constructor(options: InteractionCommandOptions) {
     super(options);
@@ -26,6 +28,7 @@ export abstract class InteractionCommand extends Command {
     this.defaultMemberPermissions = options.defaultMemberPermissions ?? new PermissionsBitField(PermissionFlagsBits.UseApplicationCommands);
     this.nsfw = options.nsfw ?? false;
     this.guilds = options.guilds;
+    this.ephemeral = options.ephemeral ?? true;
   }
 
   static generateId(type: ApplicationCommandType, name: string): string {
@@ -51,4 +54,6 @@ export abstract class InteractionCommand extends Command {
       nsfw: this.nsfw,
     }
   }
+
+  abstract run(interaction: CommandInteraction): any;
 }

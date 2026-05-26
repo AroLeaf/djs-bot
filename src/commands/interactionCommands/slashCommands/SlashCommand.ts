@@ -1,14 +1,13 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, Attachment, ChatInputCommandInteraction, Collection, GuildMember, Role, User, type APIApplicationCommandOption, type ApplicationCommandData, type Channel, type CommandInteractionOption } from 'discord.js';
-import { InteractionCommand, type InteractionCommandOptions } from './InteractionCommand';
+import { InteractionCommand, type InteractionCommandOptions } from '../InteractionCommand';
 import { SlashCommandOption, type ApplicationCommandOptionResponseType, type SlashCommandOptionOptions } from './SlashCommandOption';
 import { SlashCommandContext } from './SlashCommandContext';
-import type { Filter } from '../internal/types';
+import type { Filter } from '../../../internal/types';
 import { SubCommand, type SubCommandOptions } from './SubCommand';
 import { SubCommandGroup, type SubCommandGroupOptions } from './SubCommandGroup';
 
 export interface SlashCommandOptions extends InteractionCommandOptions {
   options?: SlashCommandOptionOptions[];
-  ephemeral?: boolean;
 }
 
 export type SlashCommandHandlerOptions = Record<string, string | number | boolean | User & { member?: GuildMember } | Channel | Role | Attachment>;
@@ -22,13 +21,11 @@ export class SlashCommand<const T extends SlashCommandOptions = SlashCommandOpti
   subCommands: Collection<string, SubCommand> = new Collection();
   subCommandGroups: Collection<string, SubCommandGroup> = new Collection();
   options?: SlashCommandOption[];
-  ephemeral: boolean;
   handler?: SlashCommandHandler<A>;
 
   constructor(options: T, handler?: SlashCommandHandler<A>) {
     super(options);
     this.options = options.options?.map(option => new SlashCommandOption(this, option));
-    this.ephemeral = options.ephemeral ?? true;
     this.handler = handler;
   }
 
@@ -59,7 +56,7 @@ export class SlashCommand<const T extends SlashCommandOptions = SlashCommandOpti
     return group;
   }
 
-  // TODO: handle subcommands
+  // TODO: run group hooks on subcommand run
   async run(interaction: ChatInputCommandInteraction<'cached'>): Promise<any> {
     const options = SlashCommand.parseOptions<A>(interaction.options.data);
     const ctx = new SlashCommandContext(this, interaction);

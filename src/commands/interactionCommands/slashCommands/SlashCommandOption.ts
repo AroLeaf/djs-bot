@@ -1,6 +1,6 @@
 import { ApplicationCommandOptionType, Attachment, GuildMember, Role, User, type APIApplicationCommandBasicOption, type ChannelType, type GuildBasedChannel, type Locale } from 'discord.js';
 import type { SlashCommand } from './SlashCommand';
-import type { Localized } from '../internal/Localized';
+import type { Localized } from '../../../internal/Localized';
 import type { SubCommand } from './SubCommand';
 
 

@@ -1,5 +1,5 @@
-import { ApplicationCommandOptionType, ChatInputCommandInteraction, Collection, type APIApplicationCommandSubcommandGroupOption } from 'discord.js';
-import { Command, type CommandOptions } from './Command';
+import { ApplicationCommandOptionType, Collection, type APIApplicationCommandSubcommandGroupOption } from 'discord.js';
+import { Command, type CommandOptions } from '../../Command';
 import type { SlashCommand, SlashCommandHandler, SlashCommandHandlerOptionsFromOptions } from './SlashCommand';
 import type { SlashCommandOptionOptions } from './SlashCommandOption';
 import { SubCommand, type SubCommandOptions } from './SubCommand';

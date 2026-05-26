@@ -1,5 +1,5 @@
 import type { CommandInteraction, Message } from 'discord.js';
-import { CommandContext } from './CommandContext';
+import { CommandContext } from '../CommandContext';
 import type { InteractionCommand } from './InteractionCommand';
 
 export abstract class InteractionCommandContext<E extends CommandInteraction> extends CommandContext<E> {

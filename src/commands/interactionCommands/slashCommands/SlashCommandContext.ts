@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction, MessageFlags, type InteractionReplyOptions, type InteractionResponse, type Message } from 'discord.js';
-import { InteractionCommandContext } from './InteractionCommandContext';
+import { InteractionCommandContext } from '../InteractionCommandContext';
 import type { SlashCommand } from './SlashCommand';
 
 export class SlashCommandContext extends InteractionCommandContext<ChatInputCommandInteraction> {
